@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💼 Abhijeet's Portfolio Website
+# 💼 Shayan's Portfolio Website
 
 </div>
 
@@ -74,15 +74,7 @@ A modern, responsive personal portfolio website showcasing my work as a full-sta
 
 ---
 
-## 📸 Live Preview
 
-👉 [Live Demo](https://abhijeetbhale.github.io/Portfolio/)
-
-## 📸 Screenshot
-
-![Portfolio Website](https://github.com/abhijeetBhale/Portfolio/blob/4153aac777d27ad5cc2aaa4ded9a3b347b8c8d9e/assets/portfolio-ss.png)
-
----
 
 ## 🚀 Getting Started
 
@@ -151,11 +143,7 @@ const username = 'YOUR_GITHUB_USERNAME';
 
 ---
 
-## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
 
 ## 📄 License
 
@@ -163,10 +151,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-## 📞 Contact
-
-- **Email**: abhijeetbhale7@gmail.com
-- **LinkedIn**: [Abhijeet Bhale](https://www.linkedin.com/in/abhijeetbhale7)
-- **GitHub**: [@abhijeetBhale](https://github.com/abhijeetBhale)
-- **Instagram**: [@isocyanideisgood](https://www.instagram.com/isocyanideisgood)
 
