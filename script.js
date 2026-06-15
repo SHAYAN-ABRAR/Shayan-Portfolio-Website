@@ -660,13 +660,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (commitsResponse.ok) {
           const commitsData = await commitsResponse.json();
           document.getElementById('githubCommits').textContent = commitsData.total_count;
+        } else {
+          document.getElementById('githubCommits').textContent = '50+';
         }
 
         // Load activity feed
         loadGitHubActivity();
-        
+
         // Load language stats
         loadGitHubLanguages(reposData);
+      } else {
+        // Non-OK responses (e.g. GitHub's 60/hr unauthenticated rate limit) don't throw,
+        // so surface them as an error to hit the graceful fallback below.
+        throw new Error('GitHub API responded ' + userResponse.status + '/' + reposResponse.status);
       }
     } catch (error) {
       console.error('Error fetching GitHub data:', error);
@@ -675,30 +681,57 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('githubStars').textContent = '25+';
       document.getElementById('githubFollowers').textContent = '10+';
       document.getElementById('githubCommits').textContent = '50+';
+      // Stop the activity feed from spinning forever
+      renderActivityFallback();
     }
+  }
+
+  // On-brand call-to-action shown when the live feed can't be fetched
+  // (e.g. GitHub's unauthenticated rate limit). Reads as intentional, not an error.
+  function renderActivityFallback() {
+    const container = document.getElementById('githubActivity');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="gh-cta flex flex-col items-center justify-center text-center py-10 px-4">
+        <div class="gh-cta-icon">
+          <i class="fab fa-github"></i>
+        </div>
+        <h4 class="text-lg md:text-xl font-semibold text-white mt-5 mb-2">Catch my latest work on GitHub</h4>
+        <p class="text-gray-400 text-sm max-w-sm mb-6">I'm always pushing new commits, repositories, and experiments — take a look at what I'm building.</p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="https://github.com/${username}" target="_blank" rel="noopener" class="gh-cta-btn">
+            <i class="fab fa-github"></i> View GitHub Profile
+          </a>
+          <a href="https://github.com/${username}?tab=repositories" target="_blank" rel="noopener" class="gh-cta-btn gh-cta-btn--ghost">
+            Browse Repositories <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>`;
   }
 
   // Load GitHub activity
   async function loadGitHubActivity() {
+    const activityContainer = document.getElementById('githubActivity');
     try {
       const response = await fetch(endpoints.activity);
-      if (response.ok) {
-        const activityData = await response.json();
-        const activityContainer = document.getElementById('githubActivity');
-        
-        // Clear loading state
-        activityContainer.innerHTML = '';
-        
-        // Show recent activity (last 5 events)
-        const recentActivity = activityData.slice(0, 5);
-        
-        recentActivity.forEach(event => {
-          const activityItem = createActivityItem(event);
-          activityContainer.appendChild(activityItem);
-        });
+      if (!response.ok) throw new Error('Activity request failed: ' + response.status);
+
+      const activityData = await response.json();
+
+      // Rate-limit responses come back as an object, not an array
+      if (!Array.isArray(activityData) || activityData.length === 0) {
+        renderActivityFallback();
+        return;
       }
+
+      // Clear loading state and render up to 5 recent events
+      activityContainer.innerHTML = '';
+      activityData.slice(0, 5).forEach(event => {
+        activityContainer.appendChild(createActivityItem(event));
+      });
     } catch (error) {
       console.error('Error loading GitHub activity:', error);
+      renderActivityFallback();
     }
   }
 
