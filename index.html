@@ -215,6 +215,19 @@
       <!-- Vertical Line -->
       <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-[#1DCD9F]"></div>
 
+      <!-- Timeline Card 0 - Left (Current Role) -->
+      <div class="relative mb-16 md:mb-24 md:flex justify-start">
+        <div class="hidden md:block absolute w-4 h-4 bg-[#1DCD9F] rounded-full left-1/2 transform -translate-x-1/2 top-4 z-10"></div>
+        <div class="md:w-1/2 md:pr-10">
+          <div class="bg-[#111] p-6 rounded-2xl border border-[#1DCD9F] shadow-lg journey-card">
+            <h3 class="text-xl font-semibold text-[#1DCD9F]">Junior AI Engineer @Tiger Park Ltd.</h3>
+            <span class="text-sm text-gray-400">January 2026 - Present</span>
+            <p class="mt-2 text-gray-300">Engineering scalable, production-grade AI agents with Ollama, fine-tuned to handle responses with precision and deployed across multiple sites. Architected a custom MCP server and a centralized AI system that orchestrates multiple programs under one intelligent core, complemented by lightweight Django development.</p>
+          </div>
+        </div>
+        <div class="md:w-1/2"></div>
+      </div>
+
       <!-- Timeline Card 1 - Right -->
       <div class="relative mb-16 md:mb-24 md:flex justify-end">
         <div class="hidden md:block absolute w-4 h-4 bg-[#1DCD9F] rounded-full left-1/2 transform -translate-x-1/2 top-4 z-10"></div>
@@ -248,7 +261,7 @@
         <div class="md:w-1/2 md:pl-10">
           <div class="bg-[#111] p-6 rounded-2xl border border-[#1DCD9F] shadow-lg journey-card">
             <h3 class="text-xl font-semibold text-[#1DCD9F]">Bechelor's – Computer Science & Engineering (CSE)</h3>
-            <span class="text-sm text-gray-400">American International University-Bangladesh, Dhaka (2022 - 2025)</span>
+            <span class="text-sm text-gray-400">American International University-Bangladesh (Feb 2022 - Jan 2026)</span>
             <p class="mt-2 text-gray-300">Focused on research development, AI projects, and machine learning technologies.</p>
           </div>
         </div>
@@ -513,41 +526,38 @@
 
       <!-- SINGLE PROJECT CARD -->
       <div class="project-card bg-white text-black shadow-xl rounded-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
-        <img src="./assets/CHAMPIONS.png" alt="Portfolio Website Screenshot" class="w-full h-60 object-cover" />
+        <img src="./assets/NOTEAI.png" alt="NoteAI - AI-powered study companion" class="w-full h-60 object-cover" />
         <div class="p-6">
-          <h3 class="text-2xl font-semibold mb-2">CHAMPIONS ARENA WEBSITE</h3>
+          <h3 class="text-2xl font-semibold mb-2">NoteAI Study Companion</h3>
           <p class="text-gray-700 mb-4">
-            Champions Arena is an interactive website showcasing gaming tournaments, with dynamic content, smooth navigation, and engaging visuals to enhance the user experience.
+            NoteAI is an AI-powered study companion that turns photos of handwritten notes into concise summaries, audio narration, quizzes, and flashcards. Built with Streamlit and running 100% locally on Ollama, it works fully offline and supports both Bengali and English.
           </p>
 
           <!-- Tech Stack Badges -->
-           <div class="flex flex-wrap gap-3 mb-4">
+          <div class="flex flex-wrap gap-3 mb-4">
             <span class="flex items-center gap-1 bg-gray-100 px-2 py-1 text-xs rounded cursor-pointer">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML" class="w-4 h-4" />
-  HTML
-</span>
-
-            <span class="flex items-center gap-1 bg-gray-100 px-2 py-1 text-xs rounded cursor-pointer">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" class="w-4 h-4" />
-              Tailwind CSS
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" class="w-4 h-4" />
+              Python
             </span>
             <span class="flex items-center gap-1 bg-gray-100 px-2 py-1 text-xs rounded cursor-pointer">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" class="w-4 h-4" />
-  JavaScript
-</span>
-
-            
-            </div>
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg" alt="Streamlit" class="w-4 h-4" />
+              Streamlit
+            </span>
+            <span class="flex items-center gap-1 bg-gray-100 px-2 py-1 text-xs rounded cursor-pointer">
+              <img src="https://cdn.simpleicons.org/ollama/e9eef2" alt="Ollama" class="w-4 h-4" />
+              Ollama
+            </span>
+          </div>
 
           <!-- Project Links -->
           <div class="flex gap-4">
-            <a href="https://shayan-abrar.github.io/Champions-Arena-Website/#slide1" target="_blank"
+            <a href="https://note-ai-io.streamlit.app/" target="_blank"
               class="bg-[#1DCD9F] text-white px-4 py-2 rounded hover:bg-[#17b890] transition-all text-sm">
-              Live Demo 
+              Live Demo
             </a>
-            <a href="https://github.com/SHAYAN-ABRAR/Champions-Arena-Website" target="_blank"
+            <a href="https://github.com/SHAYAN-ABRAR/NoteAI---AI-powered-study-companion" target="_blank"
               class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition-all text-sm">
-              GitHub 
+              GitHub
             </a>
           </div>
         </div>
@@ -957,6 +967,6 @@
       </button>
     </div>
     <script src="script.js"></script>
-    </script>
+    <script src="enhance.js"></script>
   </body>
 </html>

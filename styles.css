@@ -386,9 +386,9 @@
     height: 100%;
   }
 
-  .example-2 .icon-content a[data-social="Facebook"] .filled,
-  .example-2 .icon-content a[data-social="Facebook"] ~ .tooltip {
-    background-color: #304ae1;
+  .example-2 .icon-content a[data-social="facebook"] .filled,
+  .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+    background-color: #1877f2;
   }
 
   .example-2 .icon-content a[data-social="linkedin"] .filled,
@@ -1249,4 +1249,298 @@ textarea {
   .shadow__btn:hover {
     transform: none !important;
   }
+}
+
+/* =====================================================================
+   PREMIUM MOTION LAYER  (cursor, tilt, spotlight, aurora, grain, reveals)
+   ===================================================================== */
+
+/* ---- Film-grain texture overlay (adds a premium, filmic feel) ---- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Custom animated cursor ---- */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background: #ffffff;
+}
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  transition: width 0.25s var(--ease), height 0.25s var(--ease),
+    border-color 0.25s var(--ease), background 0.25s var(--ease), opacity 0.25s;
+}
+.cursor-ring.is-hover {
+  width: 58px;
+  height: 58px;
+  border-color: var(--accent);
+  background: rgba(29, 205, 159, 0.1);
+  mix-blend-mode: normal;
+}
+.cursor-ring.is-down {
+  width: 26px;
+  height: 26px;
+}
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
+}
+body.has-custom-cursor input:not([type="checkbox"]):not([type="radio"]),
+body.has-custom-cursor textarea {
+  cursor: text !important;
+}
+
+/* ---- Cursor-following spotlight inside cards ---- */
+.project-card,
+.upcoming-card,
+.journey-card,
+.github-stat-card {
+  position: relative;
+  isolation: isolate;
+}
+.project-card > *,
+.upcoming-card > *,
+.journey-card > *,
+.github-stat-card > * {
+  position: relative;
+  z-index: 1;
+}
+.project-card::before,
+.upcoming-card::before,
+.journey-card::before,
+.github-stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    200px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(29, 205, 159, 0.16),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.project-card:hover::before,
+.upcoming-card:hover::before,
+.journey-card:hover::before,
+.github-stat-card:hover::before {
+  opacity: 1;
+}
+
+/* Snappier transform response for the tilt-enabled cards */
+.project-card,
+.upcoming-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s var(--ease), box-shadow 0.45s var(--ease),
+    border-color 0.45s var(--ease);
+}
+
+/* ---- Shine sweep on primary buttons ---- */
+.shadow__btn,
+#submitBtn {
+  position: relative;
+  overflow: hidden;
+}
+.shadow__btn::after,
+#submitBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+.shadow__btn:hover::after,
+#submitBtn:hover::after {
+  left: 140%;
+}
+
+/* ---- Hero aurora glow (drifts behind the particles) ---- */
+section.min-vh-100::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(38% 38% at 22% 32%, rgba(29, 205, 159, 0.2), transparent 60%),
+    radial-gradient(34% 34% at 78% 68%, rgba(23, 160, 200, 0.14), transparent 60%);
+  filter: blur(28px);
+  animation: auroraDrift 20s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(4%, -3%) scale(1.12);
+  }
+  100% {
+    transform: translate(-3%, 4%) scale(1.06);
+  }
+}
+
+/* ---- Hero scroll cue ---- */
+.scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0.85;
+}
+.scroll-cue span {
+  display: block;
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+  margin-top: 6px;
+  animation: scrollDot 1.7s var(--ease) infinite;
+}
+@keyframes scrollDot {
+  0% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 1; }
+  60% { opacity: 1; transform: translateY(13px); }
+  100% { opacity: 0; transform: translateY(13px); }
+}
+
+/* ---- Scroll-reveal for headings & subtitles (JS-gated, no FOUC) ---- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  will-change: opacity, transform;
+}
+html.js [data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Animated gradient accent bar under centered section titles ---- */
+.title-accent {
+  display: block;
+  width: 0;
+  height: 3px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-soft), transparent);
+  background-size: 200% 100%;
+  transition: width 0.9s var(--ease) 0.15s;
+  animation: accentFlow 4s linear infinite;
+}
+[data-reveal].revealed .title-accent,
+.title-accent.revealed {
+  width: 84px;
+}
+@keyframes accentFlow {
+  to { background-position: 200% 0; }
+}
+
+/* ---- GitHub activity call-to-action (graceful, on-brand empty state) ---- */
+.gh-cta-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  color: var(--accent);
+  background: radial-gradient(circle at 50% 35%, rgba(29, 205, 159, 0.18), rgba(29, 205, 159, 0.05));
+  border: 1px solid rgba(29, 205, 159, 0.4);
+  box-shadow: 0 0 34px -8px var(--accent-glow), inset 0 0 18px -8px var(--accent-glow);
+  animation: ghPulse 3.2s var(--ease) infinite;
+}
+@keyframes ghPulse {
+  0%, 100% { box-shadow: 0 0 34px -10px var(--accent-glow), inset 0 0 18px -8px var(--accent-glow); }
+  50% { box-shadow: 0 0 46px -6px var(--accent-glow), inset 0 0 22px -6px var(--accent-glow); }
+}
+.gh-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 11px 22px;
+  border-radius: 999px;
+  color: #04130d;
+  background: linear-gradient(135deg, #1DCD9F 0%, #19e6b0 100%);
+  border: 1px solid transparent;
+  box-shadow: 0 8px 26px -8px var(--accent-glow);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), filter 0.3s var(--ease);
+}
+.gh-cta-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 34px -6px var(--accent-glow);
+}
+.gh-cta-btn--ghost {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.gh-cta-btn--ghost:hover {
+  color: #fff;
+  border-color: var(--border-hover);
+  background: rgba(29, 205, 159, 0.08);
+  box-shadow: 0 10px 28px -12px var(--accent-glow);
+}
+.gh-cta-btn--ghost .fa-arrow-right {
+  transition: transform 0.3s var(--ease);
+}
+.gh-cta-btn--ghost:hover .fa-arrow-right {
+  transform: translateX(4px);
+}
+
+/* Tame the heavier motion for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  body::after { display: none; }
+  section.min-vh-100::before { animation: none; }
+  .scroll-cue span { animation: none; }
+  .title-accent { animation: none; }
+  .gh-cta-icon { animation: none; }
+  html.js [data-reveal] { opacity: 1; transform: none; transition: none; }
 }
