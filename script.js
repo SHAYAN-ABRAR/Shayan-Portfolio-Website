@@ -11,41 +11,88 @@ window.addEventListener("scroll", () => {
 // Loading animation
 const letters = document.querySelectorAll(".loading-text span");
 
-// Animate each letter with stagger
-gsap.to(letters, {
-  opacity: 1,
-  duration: 1.2,
-  stagger: 0.15,
-  onUpdate: function () {
-    letters.forEach((el, i) => {
-      gsap.to(el, {
-        color: "#ffffff",
-        duration: 0.2,
-        delay: i * 0.15,
+// "Hello" in several languages, shown before the name reveal
+const greetingEl = document.getElementById("hello-greeting");
+const greetingWord = greetingEl ? greetingEl.querySelector(".hg-word") : null;
+const greetings = [
+  "Hello", "আসসালামু আলাইকুম", "নমস্কার", "नमस्ते",
+  "Hola", "Bonjour", "Ciao", "こんにちは", "안녕하세요", "مرحبا"
+];
+
+// Animate each letter of the name with stagger (the original flickering reveal)
+function runNameLoader() {
+  gsap.to(letters, {
+    opacity: 1,
+    duration: 1.2,
+    stagger: 0.15,
+    onUpdate: function () {
+      letters.forEach((el, i) => {
+        gsap.to(el, {
+          color: "#ffffff",
+          duration: 0.2,
+          delay: i * 0.15,
+        });
+        gsap.to(el, {
+          color: "rgba(255,255,255,0.1)",
+          duration: 0.2,
+          delay: i * 0.15 + 0.4,
+        });
+        gsap.to(el.querySelector("::after"), {
+          opacity: 1,
+          duration: 0.2,
+          delay: i * 0.15,
+        });
       });
-      gsap.to(el, {
-        color: "rgba(255,255,255,0.1)",
-        duration: 0.2,
-        delay: i * 0.15 + 0.4,
+    },
+    onComplete: () => {
+      gsap.to("#loading", {
+        opacity: 0,
+        duration: 1,
+        delay: 0.5,
+        onComplete: () => {
+          document.getElementById("loading").style.display = "none";
+        },
       });
-      gsap.to(el.querySelector("::after"), {
-        opacity: 1,
-        duration: 0.2,
-        delay: i * 0.15,
-      });
-    });
-  },
-  onComplete: () => {
-    gsap.to("#loading", {
-      opacity: 0,
-      duration: 1,
-      delay: 0.5,
-      onComplete: () => {
-        document.getElementById("loading").style.display = "none";
-      },
-    });
-  },
-});
+    },
+  });
+}
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (greetingEl && greetingWord && !prefersReducedMotion) {
+  // "Hello" holds for ~0.8s, the remaining greetings share ~2s (≈2.8s total),
+  // then hand off to the name reveal.
+  const HELLO_TIME = 0.8;
+  const REST_TIME = 2;
+  const restPer = REST_TIME / (greetings.length - 1); // equal slot for each remaining word
+
+  const greetTl = gsap.timeline({
+    delay: 0.15, // let the loader paint first so "Hello" is always visible
+    onComplete: () => {
+      gsap.set(greetingEl, { display: "none" });
+      runNameLoader();
+    },
+  });
+
+  greetings.forEach((word, i) => {
+    const slot = i === 0 ? HELLO_TIME : restPer;
+    const fade = Math.min(0.12, slot * 0.3); // fade in / out duration
+    const hold = Math.max(0.05, slot - fade * 2);
+    greetTl
+      .call(() => { greetingWord.textContent = word; })
+      .fromTo(
+        greetingEl,
+        { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: fade, ease: "power2.out" }
+      )
+      .to(greetingEl, { opacity: 1, duration: hold })
+      .to(greetingEl, { opacity: 0, filter: "blur(6px)", duration: fade, ease: "power2.in" });
+  });
+} else {
+  // Reduced motion (or no greeting element): go straight to the name
+  if (greetingEl) gsap.set(greetingEl, { display: "none" });
+  runNameLoader();
+}
 
 
 // Animation for Hero Text
