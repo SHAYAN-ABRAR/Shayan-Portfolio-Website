@@ -902,4 +902,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-  
+
+// Cursor spotlight glow on cards (inspired by dalelarroder.com).
+// Tracks the pointer over glass cards and feeds its position to the
+// --mx / --my CSS variables that drive each card's ::after glow.
+(function () {
+  const SELECTOR = '.project-card, .upcoming-card, .journey-card, .github-stat-card';
+  let pendingEvent = null;
+  let rafQueued = false;
+
+  function paintSpotlight() {
+    rafQueued = false;
+    const e = pendingEvent;
+    if (!e || !e.target || typeof e.target.closest !== 'function') return;
+    const card = e.target.closest(SELECTOR);
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  }
+
+  document.addEventListener('pointermove', function (e) {
+    pendingEvent = e;
+    if (!rafQueued) {
+      rafQueued = true;
+      requestAnimationFrame(paintSpotlight);
+    }
+  }, { passive: true });
+})();
+
