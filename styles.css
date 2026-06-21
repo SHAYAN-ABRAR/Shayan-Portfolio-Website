@@ -1172,6 +1172,47 @@ textarea {
   border-color: var(--border-hover);
 }
 
+/* ---- Cursor spotlight glow on cards (inspired by dalelarroder.com) ---- */
+.project-card,
+.upcoming-card,
+.journey-card,
+.github-stat-card {
+  position: relative;
+}
+.project-card::after,
+.upcoming-card::after,
+.journey-card::after,
+.github-stat-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(29, 205, 159, 0.20),
+    rgba(29, 205, 159, 0.07) 38%,
+    transparent 66%
+  );
+}
+.project-card:hover::after,
+.upcoming-card:hover::after,
+.journey-card:hover::after,
+.github-stat-card:hover::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card::after,
+  .upcoming-card::after,
+  .journey-card::after,
+  .github-stat-card::after {
+    transition: none;
+  }
+}
+
 /* ---- Upcoming project cards ---- */
 .upcoming-card {
   background: var(--surface) !important;
