@@ -43,7 +43,7 @@
     })();
 
     var hoverSel = 'a, button, .button, .shadow__btn, .project-card, .upcoming-card, ' +
-      '.journey-card, .github-stat-card, .download-label, .example-2 .icon-content a, ' +
+      '.journey-card, .github-stat-card, .pub-card, .download-label, .example-2 .icon-content a, ' +
       '.category-label, input, textarea, select, [onclick], .back2top-button';
     document.addEventListener("mouseover", function (e) {
       if (e.target.closest(hoverSel)) ring.classList.add("is-hover");
@@ -62,7 +62,7 @@
      2. Cursor-following spotlight (all flagged cards) + 3D tilt (project/upcoming)
      --------------------------------------------------------------- */
   var spotlightCards = document.querySelectorAll(
-    ".project-card, .upcoming-card, .journey-card, .github-stat-card"
+    ".project-card, .upcoming-card, .journey-card, .github-stat-card, .pub-card"
   );
   spotlightCards.forEach(function (card) {
     var tiltable = enableMotion &&

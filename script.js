@@ -249,7 +249,41 @@ gsap.utils.toArray(".github-stat-card").forEach((card, i) => {
     delay: i * 0.08
   });
 });
-  
+
+// Publication cards animate in as they enter (left/right stagger per row).
+gsap.utils.toArray(".pub-card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 90%",
+      toggleActions: "play none none reverse"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.7,
+    ease: "power3.out",
+    delay: (i % 2) * 0.1
+  });
+});
+
+// Count-up for the Google Scholar stat numbers.
+gsap.utils.toArray(".research-stat-num").forEach((el) => {
+  const target = parseInt(el.getAttribute("data-count"), 10) || 0;
+  if (prefersReducedMotion) { el.textContent = target; return; }
+  const counter = { v: 0 };
+  gsap.to(counter, {
+    v: target,
+    duration: 1.4,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: el,
+      start: "top 92%",
+      toggleActions: "play none none none"
+    },
+    onUpdate: () => { el.textContent = Math.round(counter.v); }
+  });
+});
+
   gsap.from("#about-img", {
     scrollTrigger: {
       trigger: "#about-img",
