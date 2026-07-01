@@ -216,16 +216,38 @@ gsap.utils.toArray('.fade-in').forEach((el) => {
   });
 });
 
-gsap.from(".project-card", {
-  scrollTrigger: {
-    trigger: ".project-card",
-    start: "top 85%",
-    toggleActions: "play none none reset"
-  },
-  opacity: 0,
-  y: 60,
-  duration: 1,
-  ease: "power3.out"
+// Each project card animates in as IT enters the viewport, with a subtle
+// left/right stagger within each two-column row (was: one tween off the
+// first card, which left the lower cards already-revealed off-screen).
+gsap.utils.toArray(".project-card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 85%",
+      toggleActions: "play none none reverse"
+    },
+    opacity: 0,
+    y: 60,
+    duration: 0.9,
+    ease: "power3.out",
+    delay: (i % 2) * 0.12
+  });
+});
+
+// GitHub stat cards — staggered count-in (previously had no entrance).
+gsap.utils.toArray(".github-stat-card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: "top 88%",
+      toggleActions: "play none none reverse"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.7,
+    ease: "power3.out",
+    delay: i * 0.08
+  });
 });
   
   gsap.from("#about-img", {
@@ -295,15 +317,19 @@ gsap.from(".project-card", {
     });
   });
 
+  // Tech chips stagger in one-by-one within each grid (was: whole grid fading
+  // as a single block) — makes the tech stack feel alive as it scrolls in.
   gsap.utils.toArray('.reveal-section').forEach(section => {
-    gsap.from(section, {
+    gsap.from(section.children, {
       opacity: 0,
-      y: 60,
-      duration: 1,
+      y: 30,
+      duration: 0.6,
+      ease: "power3.out",
+      stagger: 0.06,
       scrollTrigger: {
         trigger: section,
-        start: "top 80%",
-        toggleActions: "play none none reset"
+        start: "top 82%",
+        toggleActions: "play none none reverse"
       }
     });
   });
@@ -880,6 +906,7 @@ window.addEventListener('scroll', () => {
 
 // Scroll to top when button is clicked
 backToTopButton.addEventListener('click', () => {
+  if (window.lenis) { window.lenis.scrollTo(0); return; }
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -895,10 +922,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const percent = clickY / rect.height;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const targetScroll = percent * docHeight;
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth'
-      });
+      if (window.lenis) { window.lenis.scrollTo(targetScroll); }
+      else window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     });
   }
 });

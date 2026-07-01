@@ -198,4 +198,38 @@
     }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
   }
+
+  /* ---------------------------------------------------------------
+     7. Lenis smooth scroll (glides the whole page; off for reduced-motion)
+     --------------------------------------------------------------- */
+  if (!reduceMotion && typeof Lenis !== "undefined") {
+    var lenis = new Lenis({
+      duration: 1.1,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true
+    });
+    window.lenis = lenis;
+
+    if (window.gsap && window.ScrollTrigger) {
+      // Keep GSAP ScrollTrigger in sync and drive Lenis from GSAP's ticker.
+      lenis.on("scroll", window.ScrollTrigger.update);
+      window.gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+      window.gsap.ticker.lagSmoothing(0);
+    } else {
+      (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+    }
+
+    // Smooth-scroll in-page anchor links (View Projects, nav jumps, etc.)
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) return;
+      var href = a.getAttribute("href");
+      if (!href || href === "#") return;
+      var target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: 0 });
+    });
+  }
+
 })();
