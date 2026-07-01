@@ -228,8 +228,72 @@
       var target = document.querySelector(href);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: 0 });
+      lenis.scrollTo(target, { offset: -80 });
     });
   }
+
+  /* ---------------------------------------------------------------
+     8. Sticky nav: scrolled state, mobile menu, active-section highlight
+     --------------------------------------------------------------- */
+  (function initNav() {
+    var nav = document.getElementById("siteNav");
+    if (!nav) return;
+    var toggle = document.getElementById("navToggle");
+    var links = document.getElementById("navLinks");
+    var linkEls = nav.querySelectorAll(".site-nav__link");
+
+    // Condense the bar once the user scrolls past the hero top.
+    var onScroll = function () {
+      nav.classList.toggle("is-scrolled", window.scrollY > 40);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Mobile menu open/close.
+    var closeMenu = function () {
+      if (!links) return;
+      links.classList.remove("is-open");
+      if (toggle) {
+        toggle.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+      document.body.classList.remove("nav-open");
+      if (window.lenis) window.lenis.start();
+    };
+    if (toggle && links) {
+      toggle.addEventListener("click", function () {
+        var open = !links.classList.contains("is-open");
+        links.classList.toggle("is-open", open);
+        toggle.classList.toggle("is-open", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        document.body.classList.toggle("nav-open", open);
+        if (window.lenis) { open ? window.lenis.stop() : window.lenis.start(); }
+      });
+      links.addEventListener("click", function (e) {
+        if (e.target.closest("a")) closeMenu();
+      });
+    }
+
+    // Highlight the nav link for whichever section is in view.
+    if ("IntersectionObserver" in window) {
+      var map = {};
+      linkEls.forEach(function (a) {
+        var id = a.getAttribute("href");
+        if (id && id.charAt(0) === "#" && document.querySelector(id)) map[id] = a;
+      });
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          linkEls.forEach(function (a) { a.classList.remove("is-active"); });
+          var active = map["#" + en.target.id];
+          if (active) active.classList.add("is-active");
+        });
+      }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+      Object.keys(map).forEach(function (id) {
+        var s = document.querySelector(id);
+        if (s) spy.observe(s);
+      });
+    }
+  })();
 
 })();
