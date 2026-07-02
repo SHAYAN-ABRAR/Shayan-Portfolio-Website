@@ -2089,14 +2089,6 @@ body.nav-open { overflow: hidden; }
   height: 1px;
   background: linear-gradient(to right, transparent, rgba(29, 205, 159, 0.5), transparent);
 }
-.research-more__text {
-  max-width: 560px;
-  margin: 0 auto 24px;
-  color: #9aa0a6;
-  font-size: 0.96rem;
-  line-height: 1.65;
-}
-.research-more__count { color: #1dcd9f; font-weight: 700; }
 .research-scholar-btn {
   display: inline-flex;
   align-items: center;
