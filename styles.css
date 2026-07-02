@@ -1051,10 +1051,6 @@ textarea {
 #projects {
   background-image: radial-gradient(1000px 560px at 50% -8%, rgba(29, 205, 159, 0.05), transparent 62%);
 }
-#upcoming-projects {
-  background-color: #0f0f0f;
-  background-image: radial-gradient(760px 460px at 85% 0%, rgba(29, 205, 159, 0.05), transparent 60%);
-}
 #contact-form {
   background-color: #0f0f0f;
   background-image: radial-gradient(820px 500px at 12% 0%, rgba(29, 205, 159, 0.06), transparent 60%);
@@ -1213,30 +1209,6 @@ textarea {
   }
 }
 
-/* ---- Upcoming project cards ---- */
-.upcoming-card {
-  background: var(--surface) !important;
-  color: var(--text) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 18px !important;
-  backdrop-filter: blur(10px);
-  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
-}
-.upcoming-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-hover) !important;
-  box-shadow: 0 26px 60px -26px var(--accent-glow);
-}
-.upcoming-card h3 {
-  color: #ffffff !important;
-}
-.upcoming-card .text-gray-700 {
-  color: var(--text-muted) !important;
-}
-.upcoming-card .bg-yellow-100 {
-  background: rgba(245, 200, 66, 0.13) !important;
-  border: 1px solid rgba(245, 200, 66, 0.3);
-}
 .upcoming-card .text-yellow-700 {
   color: #f5c842 !important;
 }
@@ -2128,4 +2100,106 @@ body.nav-open { overflow: hidden; }
   .research-stat { padding: 10px 0; }
   .pub-feat { padding: 22px 20px 18px; }
   .research-scholar-btn { width: 100%; justify-content: center; }
+}
+
+/* =====================================================================
+   Footer
+   ===================================================================== */
+.site-footer {
+  background: #060606;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: #9aa0a6;
+  padding: 56px 24px 0;
+}
+.site-footer__inner {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 40px;
+}
+.site-footer__brand { max-width: 320px; }
+.site-footer__logo {
+  font-family: "Sora", "Inter", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.site-footer__logo span { color: #1dcd9f; }
+.site-footer__tag {
+  margin-top: 10px;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #7f858c;
+}
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+.site-footer__links a {
+  color: #9aa0a6;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+.site-footer__links a:hover { color: #1dcd9f; }
+.site-footer__social {
+  display: flex;
+  gap: 12px;
+}
+.site-footer__social a {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #9aa0a6;
+  font-size: 0.95rem;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.site-footer__social a:hover {
+  color: #04130d;
+  background: #1dcd9f;
+  border-color: #1dcd9f;
+  transform: translateY(-3px);
+}
+.site-footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 18px 0;
+  text-align: center;
+}
+.site-footer__bottom p {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: #6b7076;
+}
+@media (max-width: 720px) {
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .site-footer__links { justify-content: center; }
+}
+
+/* =====================================================================
+   Keyboard focus visibility (mouse clicks stay outline-free)
+   ===================================================================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #1dcd9f;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
