@@ -2463,3 +2463,7 @@ select:focus-visible,
   .skills-grid { grid-template-columns: 1fr; }
   .skill-cat { padding: 20px 18px; }
 }
+.skill-chip i {
+  color: #1dcd9f;
+  font-size: 0.95rem;
+}
