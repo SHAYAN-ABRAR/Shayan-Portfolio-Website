@@ -2,11 +2,11 @@
 
 # ✦ Shayan Abrar — Portfolio
 
-**Python &amp; Machine Learning Developer · Junior AI Engineer**
+**Python & Machine Learning Developer · Junior AI Engineer**
 Turning data into decisions with Python-powered, AI-driven solutions.
 
-[![Live Demo](https://img.shields.io/badge/▲_Live_Demo-shayan--abrar.vercel.app-1DCD9F?style=for-the-badge)](https://shayan-abrar.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-SHAYAN--ABRAR-181717?style=for-the-badge&logo=github)](https://github.com/SHAYAN-ABRAR)
+[![Live Site](https://img.shields.io/badge/▲_Live_Site-shayan--abrar.vercel.app-1DCD9F?style=for-the-badge)](https://shayan-abrar.vercel.app/)
+[![Google Scholar](https://img.shields.io/badge/Scholar-7_publications-4285F4?style=for-the-badge&logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=Y9-D6OQAAAAJ&hl=en)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-shayan--abrar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shayan-abrar/)
 
 <br/>
@@ -19,28 +19,37 @@ Turning data into decisions with Python-powered, AI-driven solutions.
 
 ## ✦ Overview
 
-A fast, fully responsive personal portfolio with a **dark glassmorphism** aesthetic and a mint
-accent (`#1DCD9F`). It's a single-page experience built with vanilla HTML, CSS and JavaScript —
-no framework — and elevated with a custom motion layer: an animated cursor, 3D tilt cards,
-cursor-tracking spotlights, magnetic buttons and scroll-reveal animations.
+My personal portfolio — a fast, fully responsive single-page site with a **dark glassmorphism**
+aesthetic and a mint accent (`#1DCD9F`). Built with **vanilla HTML, CSS and JavaScript** — no
+framework, no build step — and brought to life with a custom motion layer: an animated cursor,
+tilt + spotlight cards, scroll reveals and count-up stats.
+
+It showcases my work as an AI engineer: production experience, seven research publications in
+explainable deep learning, and a set of AI/ML projects that run everything from vision LLMs to
+LangGraph agents.
+
+---
+
+## ✦ Sections
+
+`Hero` · `About` · `Experience` · `Education` · `Skills & Technologies` · `GitHub Activity` · `Projects` · `Research / Publications` · `Contact`
 
 ---
 
 ## ✦ Features
 
-- 🎨 **Dark glassmorphism UI** — cohesive mint accent, soft shadows, frosted cards
-- 🖱️ **Custom animated cursor** — a dot with a lagging ring that reacts to interactive elements
-- 🪄 **3D tilt + spotlight cards** — project cards tilt and glow toward the cursor
-- 🧲 **Magnetic buttons** — primary buttons gravitate toward the pointer
+- 🎨 **Dark glassmorphism UI** — cohesive mint accent, frosted cards, soft glows
+- 💼 **Experience & Education** — quantified role cards and a clean timeline
+- 📚 **Research section** — live Scholar stats, featured most-cited papers, publication cards
+- 🖱️ **Custom animated cursor** with a lagging ring that reacts to interactive elements
+- 🪄 **3D tilt + cursor-spotlight cards**, magnetic buttons and scroll-reveal animations
 - 🌌 **Animated hero** — drifting aurora glow over an interactive particle field
-- 🔢 **Animated GitHub stats** — live repos / stars / followers / commits that count up
-- 🧬 **Scroll-reveal** — headings and cards animate in, with gradient accent bars
-- 🎞️ **Film-grain overlay** for a premium, filmic texture
-- 🕸️ **Animated journey timeline** and a categorized, interactive tech stack
-- 📨 **Working contact form** — Formspree-powered with smart anti-gibberish validation
-- 🐙 **GitHub API integration** — live activity with a graceful, on-brand fallback
-- ♿ **Accessible & considerate** — `:focus-visible` rings, `prefers-reduced-motion`, keyboard-friendly
-- 📱 **Responsive** across mobile, tablet and desktop
+- 🔢 **Count-up stats** — GitHub activity and Scholar metrics animate into view
+- 📨 **Working contact form** — Formspree-powered with smart validation
+- 🔍 **SEO-complete** — Open Graph / Twitter cards, JSON-LD (`Person` + `WebSite`), sitemap, robots.txt, favicons
+- 📈 **Vercel Web Analytics** — cookieless and invisible to visitors
+- ♿ **Accessible** — `:focus-visible` rings, `prefers-reduced-motion` support, keyboard-friendly
+- ⚡ **Performance-minded** — WebP images, pre-generated Tailwind (19 KB vs the 300 KB CDN script), lazy loading
 
 ---
 
@@ -55,18 +64,12 @@ cursor-tracking spotlights, magnetic buttons and scroll-reveal animations.
 
 | Layer | Tools |
 |---|---|
-| **Markup & layout** | HTML5, Tailwind CSS (CDN), Bootstrap 5 |
-| **Styling & motion** | Custom CSS design system, GSAP + ScrollTrigger, particles.js |
-| **Interactions** | Vanilla JS (custom cursor, tilt, spotlight, magnetic, counters) |
+| **Markup & layout** | HTML5, Tailwind CSS (pre-generated, static), Bootstrap 5 |
+| **Styling & motion** | Custom CSS design system, GSAP + ScrollTrigger, particles.js, Lenis |
+| **Interactions** | Vanilla JS — custom cursor, tilt, spotlight, counters |
 | **Typography** | Sora, Inter & Special Gothic Expanded One (Google Fonts) |
-| **Integrations** | GitHub REST API, Formspree |
+| **Integrations** | GitHub REST API, Formspree, Vercel Analytics |
 | **Icons** | Devicon, Font Awesome, Simple Icons |
-
----
-
-## ✦ Sections
-
-`Hero` · `About` · `Journey (timeline)` · `Tech Stack` · `GitHub Activity` · `Projects` · `Contact`
 
 ---
 
@@ -74,11 +77,14 @@ cursor-tracking spotlights, magnetic buttons and scroll-reveal animations.
 
 ```
 Shayan-Portfolio-Website/
-├── index.html      # Markup & content for every section
-├── styles.css      # Design system, glassmorphism & motion layer
-├── script.js       # Loader, particles, GSAP reveals, GitHub API, contact form
-├── enhance.js      # Custom cursor, tilt, spotlight, magnetic buttons, counters
-├── assets/         # Images, icons, résumé & preview
+├── index.html       # Markup & content for every section
+├── styles.css       # Design system, glassmorphism & motion layer
+├── tailwind.css     # Pre-generated Tailwind utilities (see below)
+├── script.js        # Loader, particles, GSAP reveals, GitHub API, contact form
+├── enhance.js       # Custom cursor, tilt, spotlight, counters
+├── assets/          # Images (WebP), icons, résumé & social preview
+├── favicon.ico      # Multi-resolution favicon
+├── robots.txt / sitemap.xml
 └── README.md
 ```
 
@@ -87,16 +93,18 @@ Shayan-Portfolio-Website/
 ## ✦ Run Locally
 
 ```bash
-# 1. Clone
 git clone https://github.com/SHAYAN-ABRAR/Shayan-Portfolio-Website.git
 cd Shayan-Portfolio-Website
-
-# 2. Serve (any static server works)
-python -m http.server 8000
-#    then open http://localhost:8000
+python -m http.server 8000   # any static server works
 ```
 
-> No build step required — it's a static site.
+> No build step required — it's a fully static site.
+
+**One exception:** if you add *new* Tailwind utility classes to the markup, regenerate the static stylesheet once:
+
+```bash
+npx tailwindcss@3.4.17 -o tailwind.css --content "index.html,script.js,enhance.js" --minify
+```
 
 ### Customize
 
@@ -110,6 +118,7 @@ python -m http.server 8000
 ## ✦ Connect
 
 - 🌐 **Website** — [shayan-abrar.vercel.app](https://shayan-abrar.vercel.app/)
+- 🎓 **Google Scholar** — [Shayan Abrar](https://scholar.google.com/citations?user=Y9-D6OQAAAAJ&hl=en)
 - 💼 **LinkedIn** — [shayan-abrar](https://www.linkedin.com/in/shayan-abrar/)
 - 🐙 **GitHub** — [SHAYAN-ABRAR](https://github.com/SHAYAN-ABRAR)
 - ✉️ **Email** — [shayanabrar7@gmail.com](mailto:shayanabrar7@gmail.com)
@@ -120,8 +129,8 @@ python -m http.server 8000
 ## ✦ Acknowledgements
 
 Built on the shoulders of [GSAP](https://gsap.com/), [particles.js](https://vincentgarreau.com/particles.js/),
-[Tailwind CSS](https://tailwindcss.com/), [Bootstrap](https://getbootstrap.com/),
-[Devicon](https://devicon.dev/) and [Font Awesome](https://fontawesome.com/).
+[Lenis](https://lenis.darkroom.engineering/), [Tailwind CSS](https://tailwindcss.com/),
+[Bootstrap](https://getbootstrap.com/), [Devicon](https://devicon.dev/) and [Font Awesome](https://fontawesome.com/).
 
 ---
 
