@@ -908,100 +908,104 @@
 
 <!-- CONTACT FORM SECTION -->
 <section id="contact-form" class="bg-[#0f0f0f] text-white py-20 px-6">
-  <div class="max-w-4xl mx-auto">
+  <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12">
+      <p class="research-eyebrow">Contact</p>
       <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
-      <p class="text-gray-400 text-lg">Let's discuss your next project or just say hello!</p>
+      <p class="text-gray-400 text-lg research-intro">
+        Have a project, a role, or just an idea? My inbox is always open.
+      </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10">
-      <!-- Contact Info -->
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-2xl font-semibold mb-4 text-[#1DCD9F]">Let's Connect</h3>
-          <p class="text-gray-300 mb-6">I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology and development.</p>
+    <div class="contact-grid">
+
+      <!-- Info panel -->
+      <div class="contact-info journey-card">
+        <span class="contact-status"><span class="contact-status__dot"></span> Open to opportunities</span>
+        <h3 class="contact-info__title">Let's build something intelligent.</h3>
+        <p class="contact-info__text">
+          I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology and development.
+        </p>
+
+        <div class="contact-methods">
+          <a href="mailto:shayanabrar7@gmail.com" class="contact-method contact-method--link">
+            <span class="contact-method__icon"><i class="fas fa-envelope"></i></span>
+            <span>
+              <span class="contact-method__label">Email</span>
+              <span class="contact-method__value">shayanabrar7@gmail.com</span>
+            </span>
+            <i class="fas fa-arrow-right contact-method__arrow"></i>
+          </a>
+          <div class="contact-method">
+            <span class="contact-method__icon"><i class="fas fa-location-dot"></i></span>
+            <span>
+              <span class="contact-method__label">Location</span>
+              <span class="contact-method__value">Dhaka, Bangladesh</span>
+            </span>
+          </div>
+          <div class="contact-method">
+            <span class="contact-method__icon"><i class="fas fa-clock"></i></span>
+            <span>
+              <span class="contact-method__label">Response Time</span>
+              <span class="contact-method__value">Within 24 hours</span>
+            </span>
+          </div>
         </div>
-        
-        <div class="space-y-4">
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-[#1DCD9F] rounded-full flex items-center justify-center">
-              <i class="fas fa-envelope text-white"></i>
-            </div>
-            <div>
-              <p class="text-sm text-gray-400">Email</p>
-              <p class="text-white">shayanabrar7@gmail.com</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-[#1DCD9F] rounded-full flex items-center justify-center">
-              <i class="fas fa-map-marker-alt text-white"></i>
-            </div>
-            <div>
-              <p class="text-sm text-gray-400">Location</p>
-              <p class="text-white">Dhaka, Bangladesh</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-[#1DCD9F] rounded-full flex items-center justify-center">
-              <i class="fas fa-clock text-white"></i>
-            </div>
-            <div>
-              <p class="text-sm text-gray-400">Response Time</p>
-              <p class="text-white">Within 24 hours</p>
-            </div>
-          </div>
+
+        <div class="contact-socials">
+          <a href="https://github.com/SHAYAN-ABRAR" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/shayan-abrar/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://scholar.google.com/citations?user=Y9-D6OQAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
         </div>
       </div>
 
       <!-- Contact Form -->
-      <div class="bg-white text-black rounded-2xl p-8 shadow-xl">
+      <div class="contact-form-card journey-card">
         <form id="contactForm" class="space-y-6">
           <div class="grid md:grid-cols-2 gap-4">
             <div>
-              <label for="firstName" class="block text-sm font-medium mb-2">First Name <span style="color: red">*</span></label>
-              <input 
-                type="text" 
-                id="firstName" 
-                name="firstName" 
+              <label for="firstName" class="cf-label">First Name <span class="cf-req">*</span></label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1DCD9F] focus:border-transparent transition-all"
+                class="cf-field"
                 placeholder="Shayan"
               >
             </div>
             <div>
-              <label for="lastName" class="block text-sm font-medium mb-2">Last Name <span style="color: red">*</span></label>
-              <input 
-                type="text" 
-                id="lastName" 
-                name="lastName" 
+              <label for="lastName" class="cf-label">Last Name <span class="cf-req">*</span></label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1DCD9F] focus:border-transparent transition-all"
+                class="cf-field"
                 placeholder="Abrar"
               >
             </div>
           </div>
-          
+
           <div>
-            <label for="email" class="block text-sm font-medium mb-2">Email <span style="color: red">*</span></label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
+            <label for="email" class="cf-label">Email <span class="cf-req">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
               required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1DCD9F] focus:border-transparent transition-all"
+              class="cf-field"
               placeholder="shayanabrar7@gmail.com"
             >
           </div>
-          
+
           <div>
-            <label for="subject" class="block text-sm font-medium mb-2">Subject <span style="color: red">*</span></label>
-            <select 
-              id="subject" 
-              name="subject" 
+            <label for="subject" class="cf-label">Subject <span class="cf-req">*</span></label>
+            <select
+              id="subject"
+              name="subject"
               required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1DCD9F] focus:border-transparent transition-all"
+              class="cf-field cf-select"
             >
               <option value="">Select a subject</option>
               <option value="project-inquiry">Project Inquiry</option>
@@ -1010,37 +1014,37 @@
               <option value="general">General Message</option>
             </select>
           </div>
-          
+
           <div>
-            <label for="message" class="block text-sm font-medium mb-2">Message <span style="color: red">*</span></label>
-            <textarea 
-              id="message" 
-              name="message" 
-              rows="5" 
+            <label for="message" class="cf-label">Message <span class="cf-req">*</span></label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
               required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1DCD9F] focus:border-transparent transition-all resize-none"
+              class="cf-field"
               placeholder="Tell me about your project or how I can help you..."
             ></textarea>
-            <p class="text-xs text-gray-500 mt-1">
+            <p class="cf-tip">
               💡 Tip: Write a meaningful message with at least 3 words and 10 characters. Avoid random characters or excessive repetition.
             </p>
           </div>
-          
+
           <input type="hidden" name="_subject" value="New message from Shayan Abrar Portfolio!" />
           <input type="hidden" name="site" value="Shayan Abrar Portfolio" />
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             id="submitBtn"
-            class="w-full bg-[#1DCD9F] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#17b890] transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-[#1DCD9F] focus:ring-offset-2"
+            class="cf-submit"
           >
-            <span id="submitText">Send Message</span>
+            <span id="submitText">Send Message <i class="fas fa-paper-plane"></i></span>
             <span id="submitLoading" class="hidden">
               <i class="fas fa-spinner fa-spin mr-2"></i>Sending...
             </span>
           </button>
         </form>
-        
+
         <!-- Success/Error Messages -->
         <div id="formMessage" class="mt-4 p-4 rounded-lg hidden">
           <p id="messageText"></p>
