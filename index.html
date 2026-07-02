@@ -166,130 +166,80 @@
 </section>
 
     <!-- About Me Section -->
-<section id="about" class="bg-black text-white py-20 px-6">
-  <div
-    class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center text-center md:text-left gap-10 px-4"
-  >
-    <!-- Profile Image -->
-   <div class="flex-shrink-0 w-80 h-90 rounded-xl overflow-hidden shadow-lg hover:grayscale-0 transition duration-500" id="about-img">
-  <img src="./assets/shayan-img.webp" alt="Shayan Abrar" class="w-full h-full object-cover" loading="lazy" decoding="async" />
-</div>
+<section id="about" class="about-section">
+  <div class="max-w-6xl mx-auto">
+    <div class="about-grid">
 
-
-    <!-- Text Content -->
-    <div class="max-w-2xl" id="about-text">
-      <h2 class="text-3xl md:text-4xl font-semibold leading-snug mb-4">
-        I'm <span class="text-[#1DCD9F] font-bold">Shayan Abrar</span>, a
-        Python & Machine Learning Developer building intelligent and scalable data-driven applications.
-      </h2>
-
-      <p class="text-gray-300 text-lg leading-relaxed mb-6">
-       I'm currently pursuing a Bachelor's degree in Computer Science and Engineering at American International University-Bangladesh (AIUB). My core expertise lies in Python and Machine Learning, with a focus on transforming innovative ideas into functional, data-driven solutions. I also have experience in academic research and technical paper writing, contributing to projects that bridge theoretical knowledge with real-world applications.
-      </p>
-
-      <p class="text-gray-300 text-lg leading-relaxed mb-6">
-        I'm passionate about
-        <span class="text-[#1DCD9F] font-bold">Python</span>,
-        <span class="text-[#1DCD9F] font-bold">Machine Learning</span>,
-        <span class="text-[#1DCD9F] font-bold">PostgreSQL</span>,
-        <span class="text-[#1DCD9F] font-bold"> HTML</span>,
-        <span class="text-[#1DCD9F] font-bold">CSS</span>, and many other. Beyond coding, I actively engage in real-life problem research to develop practical, impactful solutions. I'm passionate about applying technology to address real-world challenges. Outside the digital realm, I enjoy playing football, exploring new technologies, gaming, and brainstorming innovative ideas.
-      </p>
-
-      <!-- Social Icons -->
-      <ul class="example-2">
-        <li class="icon-content">
-          <a
-            href="https://www.facebook.com/share/1C8zi1grCU/ "
-            aria-label="Facebook"
-            data-social="facebook"
-            target="_blank"
-          >
-            <div class="filled"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path><path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></path>
-</svg>
-          </a>
-          <div class="tooltip">Facebook</div>
-        </li>
-        <li class="icon-content">
-          <a
-            href="https://www.linkedin.com/in/shayan-abrar/"
-            aria-label="LinkedIn"
-            data-social="linkedin"
-            target="_blank"
-          >
-            <div class="filled"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="480" height="480" viewBox="0 0 48 48">
-              <path fill="#0288d1" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z"></path><path fill="#fff" d="M14 19H18V34H14zM15.988 17h-.022C14.772 17 14 16.11 14 14.999 14 13.864 14.796 13 16.011 13c1.217 0 1.966.864 1.989 1.999C18 16.11 17.228 17 15.988 17zM35 24.5c0-3.038-2.462-5.5-5.5-5.5-1.862 0-3.505.928-4.5 2.344V19h-4v15h4v-8c0-1.657 1.343-3 3-3s3 1.343 3 3v8h4C35 34 35 24.921 35 24.5z"></path>
-              </svg>
-          </a>
-          <div class="tooltip">LinkedIn</div>
-        </li>
-        <li class="icon-content">
-          <a
-            href="mailto:shayanabrar7@gmail.com"
-            aria-label="Email"
-            data-social="email"
-          >
-            <div class="filled"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="240" height="240" viewBox="0 0 48 48">
-              <path fill="#e0e0e0" d="M5.5,40.5h37c1.933,0,3.5-1.567,3.5-3.5V11c0-1.933-1.567-3.5-3.5-3.5h-37C3.567,7.5,2,9.067,2,11v26C2,38.933,3.567,40.5,5.5,40.5z"></path><path fill="#d9d9d9" d="M26,40.5h16.5c1.933,0,3.5-1.567,3.5-3.5V11c0-1.933-1.567-3.5-3.5-3.5h-37C3.567,7.5,2,9.067,2,11L26,40.5z"></path><path fill="#eee" d="M6.745,40.5H42.5c1.933,0,3.5-1.567,3.5-3.5V11.5L6.745,40.5z"></path><path fill="#e0e0e0" d="M25.745,40.5H42.5c1.933,0,3.5-1.567,3.5-3.5V11.5L18.771,31.616L25.745,40.5z"></path><path fill="#ca3737" d="M42.5,9.5h-37C3.567,9.5,2,9.067,2,11v26c0,1.933,1.567,3.5,3.5,3.5H7V12h34v28.5h1.5c1.933,0,3.5-1.567,3.5-3.5V11C46,9.067,44.433,9.5,42.5,9.5z"></path><path fill="#f5f5f5" d="M42.5,7.5H24H5.5C3.567,7.5,2,9.036,2,11c0,1.206,1.518,2.258,1.518,2.258L24,27.756l20.482-14.497c0,0,1.518-1.053,1.518-2.258C46,9.036,44.433,7.5,42.5,7.5z"></path><path fill="#e84f4b" d="M43.246,7.582L24,21L4.754,7.582C3.18,7.919,2,9.297,2,11c0,1.206,1.518,2.258,1.518,2.258L24,27.756l20.482-14.497c0,0,1.518-1.053,1.518-2.258C46,9.297,44.82,7.919,43.246,7.582z"></path>
-              </svg>
-          </a>
-          <div class="tooltip">Gmail</div>
-        </li>
-        <li class="icon-content">
-          <a
-            href="https://github.com/SHAYAN-ABRAR"
-            aria-label="GitHub"
-            data-social="github"
-            target="_blank"
-          >
-            <div class="filled"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="240" height="240" viewBox="0 0 48 48">
-              <circle cx="28" cy="28" r="18" fill="#9fa8da"></circle><path fill="none" stroke="#18193f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M35.054,38.836	C31.97,41.137,28.144,42.5,24,42.5C13.783,42.5,5.5,34.217,5.5,24c0-2.917,0.675-5.676,1.878-8.13"></path><path fill="none" stroke="#18193f" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13.869,8.518	C16.779,6.61,20.26,5.5,24,5.5c10.217,0,18.5,8.283,18.5,18.5c0,2.941-0.686,5.721-1.907,8.19"></path><path fill="#18193f" d="M34,23c0-1.574-0.576-3.038-1.558-4.275c0.442-1.368,0.93-3.771-0.242-5.648	c-2.251,0-3.73,1.545-4.436,2.514C26.602,15.213,25.333,15,24,15s-2.602,0.213-3.764,0.591c-0.706-0.969-2.184-2.514-4.436-2.514	c-1.328,2.126-0.526,4.45-0.073,5.43C14.638,19.788,14,21.334,14,23c0,3.78,3.281,6.94,7.686,7.776	c-1.309,0.673-2.287,1.896-2.587,3.38h-1.315c-1.297,0-1.801-0.526-2.502-1.415c-0.692-0.889-1.437-1.488-2.331-1.736	c-0.482-0.051-0.806,0.316-0.386,0.641c1.419,0.966,1.516,2.548,2.085,3.583C15.168,36.161,16.229,37,17.429,37H19v5.942h10v-7.806	c0-1.908-1.098-3.544-2.686-4.36C30.719,29.94,34,26.78,34,23z"></path>
-              </svg>
-          </a>
-          <div class="tooltip">GitHub</div>
-        </li>
-      </ul>
-
-      <!-- Download Resume Button -->
-      <div class="flex align-items-center justify-content-center mt-8" style="gap: 50px">
-        <a
-          href="./assets/shayan-abrar-resume.pdf"
-          download
-        >
-          <div class="download-container">
-            <label class="download-label">
-              <input type="checkbox" class="download-input" />
-              <span class="download-circle"
-                ><svg
-                  class="download-icon"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M12 19V5m0 14-4-4m4 4 4-4"
-                  ></path>
-                </svg>
-                <div class="download-square"></div>
-              </span>
-              <p class="download-title">Download</p>
-              <p class="download-title">Open</p>
-            </label>
-          </div>
-        </a>
-        
-
+      <!-- Portrait -->
+      <div class="about-visual" id="about-img">
+        <div class="about-photo">
+          <img src="./assets/shayan-img.webp" alt="Shayan Abrar" loading="lazy" decoding="async" />
+        </div>
+        <div class="about-badge about-badge--pubs">
+          <i class="fas fa-graduation-cap"></i> 7 publications · 12 citations
+        </div>
+        <div class="about-badge about-badge--role">
+          <span class="about-badge__dot"></span> Junior AI Engineer @ Tiger Park
+        </div>
       </div>
+
+      <!-- Text Content -->
+      <div class="about-content" id="about-text">
+        <p class="research-eyebrow">About Me</p>
+        <h2 class="about-headline">
+          I'm <span>Shayan Abrar</span> — a Python &amp; Machine Learning Developer building intelligent, scalable, data-driven applications.
+        </h2>
+
+        <p class="about-para">
+          I'm currently pursuing a Bachelor's degree in Computer Science and Engineering at American International University-Bangladesh (AIUB). My core expertise lies in Python and Machine Learning, with a focus on transforming innovative ideas into functional, data-driven solutions. I also have experience in academic research and technical paper writing, contributing to projects that bridge theoretical knowledge with real-world applications.
+        </p>
+
+        <p class="about-para">
+          I'm passionate about <span class="about-hl">Python</span>, <span class="about-hl">Machine Learning</span>, <span class="about-hl">PostgreSQL</span>, <span class="about-hl">HTML</span>, <span class="about-hl">CSS</span>, and many other. Beyond coding, I actively engage in real-life problem research to develop practical, impactful solutions. Outside the digital realm, I enjoy playing football, exploring new technologies, gaming, and brainstorming innovative ideas.
+        </p>
+
+        <div class="about-actions">
+          <div class="about-socials">
+            <a href="https://github.com/SHAYAN-ABRAR" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shayan-abrar/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/share/1C8zi1grCU/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="mailto:shayanabrar7@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+
+          <!-- Download Resume Button -->
+          <a
+            href="./assets/shayan-abrar-resume.pdf"
+            download
+          >
+            <div class="download-container">
+              <label class="download-label">
+                <input type="checkbox" class="download-input" />
+                <span class="download-circle"
+                  ><svg
+                    class="download-icon"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M12 19V5m0 14-4-4m4 4 4-4"
+                    ></path>
+                  </svg>
+                  <div class="download-square"></div>
+                </span>
+                <p class="download-title">Download</p>
+                <p class="download-title">Open</p>
+              </label>
+            </div>
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
