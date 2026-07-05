@@ -2972,44 +2972,6 @@ textarea.cf-field { resize: none; }
 }
 .about-visual:hover .about-photo img { transform: scale(1.045); }
 
-.about-badge {
-  position: absolute;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 16px;
-  border-radius: 14px;
-  background: rgba(8, 14, 12, 0.88);
-  border: 1px solid rgba(29, 205, 159, 0.35);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #e8ebee;
-  box-shadow: 0 16px 34px -14px rgba(0, 0, 0, 0.7);
-  white-space: nowrap;
-}
-.about-badge i { color: #1dcd9f; font-size: 0.82rem; }
-.about-badge--pubs { top: -16px; left: -28px; }
-.about-badge--role { bottom: 26px; right: -30px; }
-.about-badge__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #1dcd9f;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .about-badge--pubs { animation: about-float 6s ease-in-out infinite; }
-  .about-badge--role { animation: about-float 6s ease-in-out 3s infinite; }
-  .about-badge__dot { animation: cs-pulse 2s ease-in-out infinite; }
-}
-@keyframes about-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
-}
-
 /* Text column */
 .about-content .research-eyebrow { margin-bottom: 14px; }
 .about-headline {
@@ -3062,8 +3024,6 @@ textarea.cf-field { resize: none; }
     gap: 56px;
   }
   .about-visual { max-width: 320px; }
-  .about-badge--pubs { left: -8px; }
-  .about-badge--role { right: -8px; }
   .about-content { text-align: center; }
   .about-actions { justify-content: center; }
 }
