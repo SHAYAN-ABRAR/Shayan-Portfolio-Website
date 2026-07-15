@@ -1122,13 +1122,15 @@ textarea {
   border-color: var(--border-hover) !important;
   box-shadow: 0 22px 50px -26px var(--accent-glow);
 }
-#githubLanguages > div,
-#githubActivity > div {
-  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+.gh-panel {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
-#githubLanguages > div:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 44px -26px var(--accent-glow);
+.gh-panel:hover {
+  border-color: var(--border-hover) !important;
+  box-shadow: 0 22px 50px -28px var(--accent-glow);
 }
 
 /* ---- Project cards: cohesive dark glassmorphism ---- */
@@ -1453,6 +1455,36 @@ section.min-vh-100::before {
   }
 }
 
+/* ---- Hero WebGL particle field (hero-particles.js) ---- */
+#particles-hero canvas {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Contact section scanning-grid background (gridscan-contact.js) ---- */
+#contact-form {
+  position: relative;
+  overflow: hidden;
+}
+#contact-form > .max-w-6xl {
+  position: relative;
+  z-index: 1;
+}
+#gridscan-contact {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+#gridscan-contact canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* ---- Hero scroll cue ---- */
 .scroll-cue {
   position: absolute;
@@ -1573,6 +1605,265 @@ html.js [data-reveal].revealed {
 }
 .gh-cta-btn--ghost:hover .fa-arrow-right {
   transform: translateX(4px);
+}
+
+/* ---- GitHub dashboard: stat icons, panel heads, heatmap, timeline, languages ---- */
+.gh-stat__icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--accent);
+  background: rgba(29, 205, 159, 0.1);
+  border: 1px solid rgba(29, 205, 159, 0.25);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.github-stat-card:hover .gh-stat__icon {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 8px 22px -8px var(--accent-glow);
+}
+
+.gh-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+.gh-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+.gh-panel__title i {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+.gh-panel__meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Contribution heatmap */
+.gh-heatmap-scroll {
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29, 205, 159, 0.35) transparent;
+}
+.gh-heatmap {
+  display: grid;
+  grid-template-rows: auto repeat(7, 12px);
+  grid-auto-columns: 12px;
+  gap: 3px;
+  width: max-content;
+  margin: 0 auto;
+}
+.gh-month {
+  grid-row: 1;
+  font-size: 0.66rem;
+  line-height: 1;
+  color: var(--text-muted);
+  white-space: nowrap;
+  padding-bottom: 4px;
+}
+.gh-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+.gh-cell[data-level="1"] { background: rgba(29, 205, 159, 0.25); }
+.gh-cell[data-level="2"] { background: rgba(29, 205, 159, 0.5); }
+.gh-cell[data-level="3"] { background: rgba(29, 205, 159, 0.75); }
+.gh-cell[data-level="4"] { background: var(--accent); box-shadow: 0 0 6px rgba(29, 205, 159, 0.45); }
+.gh-heatmap .gh-cell:hover {
+  transform: scale(1.35);
+  box-shadow: 0 0 10px rgba(29, 205, 159, 0.55);
+}
+.gh-heatmap-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.gh-heatmap-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.gh-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.gh-heatmap-legend .gh-cell {
+  flex: none;
+}
+.gh-heatmap-legend span:first-child { margin-right: 4px; }
+.gh-heatmap-legend span:last-child { margin-left: 4px; }
+
+/* Activity timeline */
+.gh-timeline {
+  display: flex;
+  flex-direction: column;
+}
+.gh-event {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  transition: background 0.25s var(--ease);
+}
+.gh-event:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.gh-event:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 48px;
+  bottom: -8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--border), transparent);
+}
+.gh-event__icon {
+  flex: none;
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+.gh-event__body {
+  min-width: 0;
+}
+.gh-event__text {
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.gh-event__text code {
+  font-size: 0.82rem;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--accent);
+}
+.gh-event__repo {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+.gh-event__repo:hover {
+  color: #17b890;
+  text-decoration: underline;
+}
+.gh-event__detail {
+  margin-top: 4px;
+  font-size: 0.83rem;
+  font-style: italic;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gh-event__detail i {
+  font-size: 0.6rem;
+  opacity: 0.6;
+  margin-right: 4px;
+}
+.gh-event__time {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: #6b7280;
+}
+
+/* Language distribution bar + legend */
+.gh-langbar {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 1.2rem;
+}
+.gh-langbar__seg {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  transition: filter 0.25s var(--ease);
+}
+.gh-langbar__seg:hover {
+  filter: brightness(1.3);
+}
+.gh-langbar__seg + .gh-langbar__seg {
+  border-left: 2px solid #111;
+}
+.gh-langlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.gh-langlist__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  transition: background 0.25s var(--ease);
+}
+.gh-langlist__item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.gh-langlist__dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.gh-langlist__name {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+.gh-langlist__pct {
+  margin-left: auto;
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.gh-langlist__count {
+  min-width: 56px;
+  text-align: right;
+  font-size: 0.78rem;
+  color: #6b7280;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Tame the heavier motion for reduced-motion users */

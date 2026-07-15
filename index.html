@@ -479,55 +479,86 @@
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12">
       <h2 class="text-4xl font-bold mb-4">GitHub Activity</h2>
-      <p class="text-gray-400 text-lg">My latest contributions and coding activity.</p>
+      <p class="text-gray-400 text-lg">A live snapshot of my open-source work — pulled straight from the GitHub API.</p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
       <!-- GitHub Stats Cards -->
-      <div class="github-stat-card bg-[#111] p-6 rounded-2xl text-center border border-gray-800 hover:border-[#1DCD9F] transition-all duration-300">
+      <div class="github-stat-card gh-stat bg-[#111] p-6 rounded-2xl text-center border border-gray-800">
+        <div class="gh-stat__icon"><i class="fas fa-book-bookmark"></i></div>
         <div class="text-3xl font-bold text-[#1DCD9F] mb-2" id="githubRepos">-</div>
         <div class="text-gray-400">Public Repositories</div>
       </div>
-      
-      <div class="github-stat-card bg-[#111] p-6 rounded-2xl text-center border border-gray-800 hover:border-[#1DCD9F] transition-all duration-300">
+
+      <div class="github-stat-card gh-stat bg-[#111] p-6 rounded-2xl text-center border border-gray-800">
+        <div class="gh-stat__icon"><i class="fas fa-star"></i></div>
         <div class="text-3xl font-bold text-[#1DCD9F] mb-2" id="githubStars">-</div>
         <div class="text-gray-400">Total Stars</div>
       </div>
-      
-      <div class="github-stat-card bg-[#111] p-6 rounded-2xl text-center border border-gray-800 hover:border-[#1DCD9F] transition-all duration-300">
+
+      <div class="github-stat-card gh-stat bg-[#111] p-6 rounded-2xl text-center border border-gray-800">
+        <div class="gh-stat__icon"><i class="fas fa-user-group"></i></div>
         <div class="text-3xl font-bold text-[#1DCD9F] mb-2" id="githubFollowers">-</div>
         <div class="text-gray-400">Followers</div>
       </div>
-      
-      <div class="github-stat-card bg-[#111] p-6 rounded-2xl text-center border border-gray-800 hover:border-[#1DCD9F] transition-all duration-300">
+
+      <div class="github-stat-card gh-stat bg-[#111] p-6 rounded-2xl text-center border border-gray-800">
+        <div class="gh-stat__icon"><i class="fas fa-code-commit"></i></div>
         <div class="text-3xl font-bold text-[#1DCD9F] mb-2" id="githubCommits">-</div>
-        <div class="text-gray-400">Recent Commits</div>
+        <div class="text-gray-400">Contributions · 30 Days</div>
       </div>
     </div>
 
-    <!-- GitHub Activity Feed -->
-    <div class="bg-[#111] rounded-2xl p-6 border border-gray-800">
-      <div class="flex items-center justify-between mb-6">
-        <h3 class="text-xl font-semibold text-[#1DCD9F]">Recent Activity</h3>
-        <a href="https://github.com/SHAYAN-ABRAR?tab=repositories" target="_blank" class="text-[#1DCD9F] hover:text-[#17b890] transition-colors">
-          View Profile <i class="fas fa-external-link-alt ml-1"></i>
-        </a>
+    <!-- Contribution heatmap -->
+    <div class="gh-panel bg-[#111] rounded-2xl p-6 border border-gray-800 mb-8" id="githubHeatmapCard">
+      <div class="gh-panel__head">
+        <h3 class="gh-panel__title"><i class="fas fa-calendar-days"></i> Contribution Graph</h3>
+        <span class="gh-panel__meta" id="githubContribTotal"></span>
       </div>
-      
-      <div id="githubActivity" class="space-y-4">
-        <!-- Activity items will be loaded here -->
-        <div class="flex items-center justify-center py-8">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1DCD9F]"></div>
-          <span class="ml-3 text-gray-400">Loading activity...</span>
+      <div class="gh-heatmap-scroll">
+        <div class="gh-heatmap" id="githubHeatmap" aria-label="GitHub contribution calendar for the last year"></div>
+      </div>
+      <div class="gh-heatmap-foot">
+        <span class="gh-heatmap-hint">Each square is one day — hover for details</span>
+        <div class="gh-heatmap-legend" aria-hidden="true">
+          <span>Less</span>
+          <span class="gh-cell" data-level="0"></span>
+          <span class="gh-cell" data-level="1"></span>
+          <span class="gh-cell" data-level="2"></span>
+          <span class="gh-cell" data-level="3"></span>
+          <span class="gh-cell" data-level="4"></span>
+          <span>More</span>
         </div>
       </div>
     </div>
 
-    <!-- Top Languages -->
-    <div class="mt-12">
-      <h3 class="text-xl font-semibold text-[#1DCD9F] mb-6 text-center">Most Used Languages</h3>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="githubLanguages">
-        <!-- Language cards will be loaded here -->
+    <div class="grid lg:grid-cols-5 gap-8">
+      <!-- GitHub Activity Feed -->
+      <div class="gh-panel bg-[#111] rounded-2xl p-6 border border-gray-800 lg:col-span-3">
+        <div class="gh-panel__head">
+          <h3 class="gh-panel__title"><i class="fas fa-wave-square"></i> Recent Activity</h3>
+          <a href="https://github.com/SHAYAN-ABRAR" target="_blank" rel="noopener" class="text-[#1DCD9F] hover:text-[#17b890] transition-colors text-sm">
+            View Profile <i class="fas fa-external-link-alt ml-1"></i>
+          </a>
+        </div>
+
+        <div id="githubActivity" class="gh-timeline">
+          <!-- Activity items will be loaded here -->
+          <div class="flex items-center justify-center py-8">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1DCD9F]"></div>
+            <span class="ml-3 text-gray-400">Loading activity...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Languages -->
+      <div class="gh-panel bg-[#111] rounded-2xl p-6 border border-gray-800 lg:col-span-2">
+        <div class="gh-panel__head">
+          <h3 class="gh-panel__title"><i class="fas fa-chart-simple"></i> Most Used Languages</h3>
+        </div>
+        <div id="githubLanguages">
+          <!-- Language bar + legend will be loaded here -->
+        </div>
       </div>
     </div>
   </div>
@@ -815,7 +846,7 @@
       </div>
       <div class="research-stats__divider"></div>
       <div class="research-stat">
-        <span class="research-stat-num" data-count="12">0</span>
+        <span class="research-stat-num" data-count="13">0</span>
         <span class="research-stat-label">Citations</span>
       </div>
       <div class="research-stats__divider"></div>
@@ -852,7 +883,7 @@
         <h3 class="pub-title">MediVision: An Explainable and Robust Deep Learning Framework for Knee Osteoarthritis Grading</h3>
         <p class="pub-authors">G Kibria, <span class="pub-me">S Abrar</span>, BMS Alam, A Rayhan, MT Noor, R Awal, S Ripon</p>
         <div class="pub-feat__foot">
-          <span class="pub-feat__cites"><span class="pub-feat__cites-num">4</span> citations</span>
+          <span class="pub-feat__cites"><span class="pub-feat__cites-num">5</span> citations</span>
           <span class="pub-read">Read paper <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
@@ -901,6 +932,8 @@
 
 <!-- CONTACT FORM SECTION -->
 <section id="contact-form" class="bg-[#0f0f0f] text-white py-20 px-6">
+  <!-- GridScan WebGL background (gridscan-contact.js) -->
+  <div id="gridscan-contact" aria-hidden="true"></div>
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-12">
       <p class="research-eyebrow">Contact</p>
@@ -1101,6 +1134,10 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
     <!-- Particles background -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- Hero space particles: WebGL (ogl) port of React Bits <Particles /> -->
+    <script type="module" src="hero-particles.js"></script>
+    <!-- Contact section scanning grid: WebGL (ogl) port of React Bits <GridScan /> -->
+    <script type="module" src="gridscan-contact.js"></script>
 
     <!-- Back to Top Button -->
     <div class="wrapper">

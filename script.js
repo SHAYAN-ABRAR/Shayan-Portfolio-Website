@@ -126,32 +126,8 @@ gsap.utils.toArray(".journey-card").forEach((card, index) => {
   });
 });
 
-// HERO SECTION PARTICLES
-particlesJS("particles-hero", {
-  "particles": {
-    "number": {
-      "value": 200,
-      "density": { "enable": true, "value_area": 800 }
-    },
-    "color": { "value": "#ffffff" },
-    "opacity": { "value": 0.7, "random": false },
-    "size": { "value": 4, "random": true },
-    "line_linked": { "enable": false },
-    "move": {
-      "enable": true,
-      "speed": 1,
-      "direction": "bottom",
-      "out_mode": "out"
-    }
-  },
-  "interactivity": {
-    "events": {
-      "onhover": { "enable": false },
-      "onclick": { "enable": false }
-    }
-  },
-  "retina_detect": true
-});
+// HERO SECTION PARTICLES: space-like WebGL field in hero-particles.js
+// (falls back to the old particles.js config from there if WebGL fails)
 
 
 
@@ -741,6 +717,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Fetch GitHub user data
   async function fetchGitHubData() {
+    // The contribution graph comes from its own API, so let it load independently
+    loadContributionGraph();
     try {
       const [userResponse, reposResponse] = await Promise.all([
         fetch(endpoints.user),
@@ -754,24 +732,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update stats
         document.getElementById('githubRepos').textContent = userData.public_repos;
         document.getElementById('githubFollowers').textContent = userData.followers;
-        
+
         // Calculate total stars
         const totalStars = reposData.reduce((sum, repo) => sum + repo.stargazers_count, 0);
         document.getElementById('githubStars').textContent = totalStars;
 
-        // Calculate recent commits (last 30 days)
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        
-        const commitsResponse = await fetch(`https://api.github.com/search/commits?q=author:${username}+committer-date:>${thirtyDaysAgo.toISOString().split('T')[0]}`);
-        if (commitsResponse.ok) {
-          const commitsData = await commitsResponse.json();
-          document.getElementById('githubCommits').textContent = commitsData.total_count;
-        } else {
-          document.getElementById('githubCommits').textContent = '50+';
-        }
-
-        // Load activity feed
+        // Load activity feed (also derives the 30-day commit count)
         loadGitHubActivity();
 
         // Load language stats
@@ -787,7 +753,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('githubRepos').textContent = '15+';
       document.getElementById('githubStars').textContent = '25+';
       document.getElementById('githubFollowers').textContent = '10+';
-      document.getElementById('githubCommits').textContent = '50+';
+      // (the 30-day contributions stat is owned by loadContributionGraph)
       // Stop the activity feed from spinning forever
       renderActivityFallback();
     }
@@ -816,6 +782,26 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>`;
   }
 
+  // "2 hours ago" style relative timestamps
+  function timeAgo(dateString) {
+    const seconds = Math.floor((Date.now() - new Date(dateString)) / 1000);
+    const steps = [
+      [31536000, 'year'], [2592000, 'month'], [604800, 'week'],
+      [86400, 'day'], [3600, 'hour'], [60, 'minute']
+    ];
+    for (const [span, label] of steps) {
+      const n = Math.floor(seconds / span);
+      if (n >= 1) return `${n} ${label}${n > 1 ? 's' : ''} ago`;
+    }
+    return 'just now';
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
   // Load GitHub activity
   async function loadGitHubActivity() {
     const activityContainer = document.getElementById('githubActivity');
@@ -831,9 +817,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Clear loading state and render up to 5 recent events
+      // Collapse consecutive pushes to the same repo into a single entry
+      const grouped = [];
+      activityData.forEach(ev => {
+        const last = grouped[grouped.length - 1];
+        if (last && ev.type === 'PushEvent' && last.type === 'PushEvent' &&
+            last.repo?.name === ev.repo?.name) {
+          last._pushCount = (last._pushCount || 1) + 1;
+          return;
+        }
+        grouped.push(ev);
+      });
+
+      // Clear loading state and render recent events
       activityContainer.innerHTML = '';
-      activityData.slice(0, 5).forEach(event => {
+      grouped.slice(0, 6).forEach(event => {
         activityContainer.appendChild(createActivityItem(event));
       });
     } catch (error) {
@@ -842,84 +840,215 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Create activity item element
+  // Create one timeline entry for the activity feed
   function createActivityItem(event) {
     const item = document.createElement('div');
-    item.className = 'flex items-center space-x-4 p-4 bg-[#0a0a0a] rounded-lg border border-gray-800';
-    
-    const eventType = event.type;
+    item.className = 'gh-event';
+
     const repoName = event.repo?.name || 'Unknown Repository';
-    const createdAt = new Date(event.created_at).toLocaleDateString();
-    
-    let icon, text;
-    
-    switch(eventType) {
-      case 'PushEvent':
-        icon = 'fas fa-code';
-        text = `Pushed to ${repoName}`;
+    const shortRepo = repoName.replace(`${username}/`, '');
+    const repoLink = `<a href="https://github.com/${repoName}" target="_blank" rel="noopener" class="gh-event__repo">${escapeHtml(shortRepo)}</a>`;
+
+    const styles = {
+      teal:   { color: '#1DCD9F', bg: 'rgba(29, 205, 159, 0.12)', border: 'rgba(29, 205, 159, 0.35)' },
+      blue:   { color: '#58a6ff', bg: 'rgba(88, 166, 255, 0.12)', border: 'rgba(88, 166, 255, 0.35)' },
+      purple: { color: '#bc8cff', bg: 'rgba(188, 140, 255, 0.12)', border: 'rgba(188, 140, 255, 0.35)' },
+      gold:   { color: '#f5c842', bg: 'rgba(245, 200, 66, 0.12)', border: 'rgba(245, 200, 66, 0.35)' },
+      orange: { color: '#f78166', bg: 'rgba(247, 129, 102, 0.12)', border: 'rgba(247, 129, 102, 0.35)' },
+      gray:   { color: '#9ca3af', bg: 'rgba(156, 163, 175, 0.10)', border: 'rgba(156, 163, 175, 0.30)' }
+    };
+
+    let icon, text, style = styles.teal, detail = '';
+
+    switch (event.type) {
+      case 'PushEvent': {
+        icon = 'fas fa-code-commit';
+        // The public events API strips commit lists, so lead with push count / branch instead
+        const times = event._pushCount || 1;
+        const branch = (event.payload?.ref || '').replace('refs/heads/', '');
+        if (times > 1) {
+          text = `Pushed ${times} times to ${repoLink}`;
+        } else if (branch) {
+          text = `Pushed to <code>${escapeHtml(branch)}</code> in ${repoLink}`;
+        } else {
+          text = `Pushed to ${repoLink}`;
+        }
         break;
-      case 'CreateEvent':
+      }
+      case 'CreateEvent': {
+        const refType = event.payload?.ref_type || 'repository';
         icon = 'fas fa-plus';
-        text = `Created ${repoName}`;
+        style = styles.blue;
+        text = refType === 'repository'
+          ? `Created a new repository ${repoLink}`
+          : `Created ${refType} <code>${escapeHtml(event.payload?.ref || '')}</code> in ${repoLink}`;
+        break;
+      }
+      case 'PullRequestEvent': {
+        const action = event.payload?.pull_request?.merged ? 'Merged' : (event.payload?.action === 'closed' ? 'Closed' : 'Opened');
+        icon = 'fas fa-code-pull-request';
+        style = action === 'Merged' ? styles.purple : styles.blue;
+        text = `${action} a pull request in ${repoLink}`;
+        break;
+      }
+      case 'IssuesEvent':
+        icon = 'fas fa-circle-dot';
+        style = styles.orange;
+        text = `${(event.payload?.action || 'updated').replace(/^./, c => c.toUpperCase())} an issue in ${repoLink}`;
         break;
       case 'ForkEvent':
         icon = 'fas fa-code-branch';
-        text = `Forked ${repoName}`;
+        style = styles.purple;
+        text = `Forked ${repoLink}`;
         break;
       case 'WatchEvent':
         icon = 'fas fa-star';
-        text = `Starred ${repoName}`;
+        style = styles.gold;
+        text = `Starred ${repoLink}`;
+        break;
+      case 'ReleaseEvent':
+        icon = 'fas fa-tag';
+        style = styles.gold;
+        text = `Published a release in ${repoLink}`;
+        break;
+      case 'PublicEvent':
+        icon = 'fas fa-unlock';
+        style = styles.blue;
+        text = `Open-sourced ${repoLink}`;
         break;
       default:
-        icon = 'fas fa-circle';
-        text = `Activity in ${repoName}`;
+        icon = 'fas fa-circle-nodes';
+        style = styles.gray;
+        text = `Activity in ${repoLink}`;
     }
-    
+
     item.innerHTML = `
-      <div class="w-10 h-10 bg-[#1DCD9F] rounded-full flex items-center justify-center">
-        <i class="${icon} text-white"></i>
+      <div class="gh-event__icon" style="color:${style.color};background:${style.bg};border-color:${style.border}">
+        <i class="${icon}"></i>
       </div>
-      <div class="flex-1">
-        <p class="text-white font-medium">${text}</p>
-        <p class="text-gray-400 text-sm">${createdAt}</p>
+      <div class="gh-event__body">
+        <p class="gh-event__text">${text}</p>
+        ${detail}
+        <time class="gh-event__time" datetime="${event.created_at}">${timeAgo(event.created_at)}</time>
       </div>
-      <a href="https://github.com/${repoName}" target="_blank" class="text-[#1DCD9F] hover:text-[#17b890]">
-        <i class="fas fa-external-link-alt"></i>
-      </a>
     `;
-    
+
     return item;
   }
 
-  // Load GitHub languages
+  // Load GitHub languages as a stacked distribution bar + legend
   function loadGitHubLanguages(reposData) {
+    // Official GitHub linguist colors for the languages I actually use
+    const languageColors = {
+      'Python': '#3572A5', 'JavaScript': '#f1e05a', 'TypeScript': '#3178c6',
+      'HTML': '#e34c26', 'CSS': '#563d7c', 'Jupyter Notebook': '#DA5B0B',
+      'C++': '#f34b7d', 'C': '#555555', 'Java': '#b07219', 'PHP': '#4F5D95',
+      'Shell': '#89e051', 'Kotlin': '#A97BFF', 'Dart': '#00B4AB', 'Go': '#00ADD8',
+      'Assembly': '#6E4C13', 'C#': '#178600', 'Vue': '#41b883', 'SCSS': '#c6538c'
+    };
+
     const languageStats = {};
-    
     reposData.forEach(repo => {
       if (repo.language) {
         languageStats[repo.language] = (languageStats[repo.language] || 0) + 1;
       }
     });
-    
-    // Sort languages by frequency
+
     const sortedLanguages = Object.entries(languageStats)
-      .sort(([,a], [,b]) => b - a)
+      .sort(([, a], [, b]) => b - a)
       .slice(0, 6);
-    
+    const total = sortedLanguages.reduce((sum, [, count]) => sum + count, 0);
+    if (!total) return;
+
     const languagesContainer = document.getElementById('githubLanguages');
-    languagesContainer.innerHTML = '';
-    
-    sortedLanguages.forEach(([language, count]) => {
-      const languageCard = document.createElement('div');
-      languageCard.className = 'bg-[#111] p-4 rounded-xl border border-gray-800 text-center hover:border-[#1DCD9F] transition-all duration-300';
-      
-      languageCard.innerHTML = `
-        <div class="text-2xl font-bold text-[#1DCD9F] mb-2">${language}</div>
-        <div class="text-gray-400 text-sm">${count} repositories</div>
-      `;
-      
-      languagesContainer.appendChild(languageCard);
-    });
+
+    const bar = sortedLanguages.map(([language, count]) => {
+      const color = languageColors[language] || '#1DCD9F';
+      const pct = (count / total) * 100;
+      return `<span class="gh-langbar__seg" style="width:${pct.toFixed(1)}%;background:${color}" title="${escapeHtml(language)} — ${pct.toFixed(1)}%"></span>`;
+    }).join('');
+
+    const legend = sortedLanguages.map(([language, count]) => {
+      const color = languageColors[language] || '#1DCD9F';
+      const pct = ((count / total) * 100).toFixed(1);
+      return `
+        <li class="gh-langlist__item">
+          <span class="gh-langlist__dot" style="background:${color};box-shadow:0 0 8px ${color}66"></span>
+          <span class="gh-langlist__name">${escapeHtml(language)}</span>
+          <span class="gh-langlist__pct">${pct}%</span>
+          <span class="gh-langlist__count">${count} ${count === 1 ? 'repo' : 'repos'}</span>
+        </li>`;
+    }).join('');
+
+    languagesContainer.innerHTML = `
+      <div class="gh-langbar" role="img" aria-label="Language distribution across my repositories">${bar}</div>
+      <ul class="gh-langlist">${legend}</ul>
+    `;
+  }
+
+  // Render the last year of contributions as a GitHub-style heatmap
+  async function loadContributionGraph() {
+    const card = document.getElementById('githubHeatmapCard');
+    const grid = document.getElementById('githubHeatmap');
+    const totalEl = document.getElementById('githubContribTotal');
+    if (!card || !grid) return;
+
+    try {
+      const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+      if (!response.ok) throw new Error('Contributions request failed: ' + response.status);
+      const data = await response.json();
+      const days = data.contributions;
+      if (!Array.isArray(days) || days.length === 0) throw new Error('No contribution data');
+
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const firstDow = new Date(days[0].date + 'T00:00:00').getDay();
+      const frag = document.createDocumentFragment();
+      let lastLabelCol = -3;
+
+      days.forEach((day, i) => {
+        const date = new Date(day.date + 'T00:00:00');
+        const col = Math.floor((i + firstDow) / 7) + 1;
+
+        // Month label above the first week of each month (skip cramped repeats)
+        if (date.getDate() === 1 && col - lastLabelCol >= 3) {
+          const label = document.createElement('span');
+          label.className = 'gh-month';
+          label.textContent = months[date.getMonth()];
+          label.style.gridColumn = col;
+          frag.appendChild(label);
+          lastLabelCol = col;
+        }
+
+        const cell = document.createElement('span');
+        cell.className = 'gh-cell';
+        cell.dataset.level = day.level;
+        cell.style.gridColumn = col;
+        cell.style.gridRow = date.getDay() + 2;
+        const pretty = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        cell.title = `${day.count === 1 ? '1 contribution' : day.count + ' contributions'} on ${pretty}`;
+        frag.appendChild(cell);
+      });
+
+      grid.innerHTML = '';
+      grid.appendChild(frag);
+
+      const totalCount = data.total?.lastYear ?? days.reduce((sum, d) => sum + d.count, 0);
+      if (totalEl) totalEl.textContent = `${totalCount.toLocaleString()} contributions in the last year`;
+
+      // This data also powers the "last 30 days" stat card
+      const thirtyDaysAgo = Date.now() - 30 * 86400000;
+      const recent = days.reduce((sum, d) =>
+        new Date(d.date + 'T00:00:00') >= thirtyDaysAgo ? sum + d.count : sum, 0);
+      document.getElementById('githubCommits').textContent = String(recent);
+
+      // Show the most recent weeks first on small screens
+      const scroller = grid.closest('.gh-heatmap-scroll');
+      if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+    } catch (error) {
+      console.error('Error loading contribution graph:', error);
+      card.style.display = 'none';
+      document.getElementById('githubCommits').textContent = '50+';
+    }
   }
 
   // Initialize GitHub data loading
