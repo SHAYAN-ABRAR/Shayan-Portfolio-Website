@@ -109,20 +109,23 @@
   /* ---------------------------------------------------------------
      4. Animated count-up for GitHub stats (runs once when value arrives)
      --------------------------------------------------------------- */
-  ["githubRepos", "githubStars", "githubFollowers", "githubCommits"].forEach(function (id) {
+  ["githubRepos", "githubCurrentStreak", "githubLongestStreak", "githubCommits"].forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
     var obs = new MutationObserver(function () {
-      var m = el.textContent.trim().match(/^(\d+)(\+?)$/);
+      // Plain numbers ("69"), fallbacks ("65+") and streaks ("59 days").
+      var m = el.textContent.trim().match(/^(\d+)(\+?|\s+days?)$/);
       if (!m) return;
       obs.disconnect();
       var target = parseInt(m[1], 10), suffix = m[2];
       if (reduceMotion || target === 0) { el.textContent = target + suffix; return; }
+      // A unit stays visible while counting; a "+" only appears at the end.
+      var unit = suffix === "+" ? "" : suffix;
       var t0 = performance.now(), dur = 1500;
       (function tick(now) {
         var p = Math.min((now - t0) / dur, 1);
         var eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * eased) + (p === 1 ? suffix : "");
+        el.textContent = Math.round(target * eased) + (p === 1 ? suffix : unit);
         if (p < 1) requestAnimationFrame(tick);
       })(t0);
     });

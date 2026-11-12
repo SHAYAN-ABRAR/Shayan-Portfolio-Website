@@ -1608,6 +1608,12 @@ html.js [data-reveal].revealed {
 }
 
 /* ---- GitHub dashboard: stat icons, panel heads, heatmap, timeline, languages ---- */
+.gh-stat__range {
+  margin-top: 4px;
+  min-height: 1.2em;
+  font-size: 0.8rem;
+  color: #6b7178;
+}
 .gh-stat__icon {
   width: 44px;
   height: 44px;
@@ -2828,6 +2834,47 @@ select:focus-visible,
   box-shadow: 0 12px 30px -8px rgba(29, 205, 159, 0.65);
 }
 .project-btn:active { transform: translateY(-1px); }
+
+/* Project images shown whole (diagrams, multi-panel captures) instead of cropped */
+.project-card picture { display: block; }
+.project-card img.project-img--contain { object-fit: contain; }
+.project-card img.project-img--dark { background: #000; }
+.project-card img.project-img--light { background: #fff; padding: 10px 14px; }
+
+/* "See more projects": cards 5-8 stay hidden until the grid is expanded.
+   script.js adds .is-collapsible, so every card shows if scripts fail. */
+.projects-grid.is-collapsible:not(.is-expanded) .project-card--extra { display: none; }
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+.projects-more[hidden] { display: none; }
+.projects-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 15px 30px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1dcd9f 0%, #19e6b0 100%);
+  color: #04130d;
+  font-weight: 700;
+  font-size: 0.93rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -8px rgba(29, 205, 159, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.projects-toggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 42px -6px rgba(29, 205, 159, 0.75);
+}
+.projects-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.projects-toggle__icon { transition: transform 0.3s ease; }
+.projects-toggle[aria-expanded="true"] .projects-toggle__icon { transform: rotate(180deg); }
 
 /* Download button — idle pulse, hover lift + bouncing arrow */
 @media (prefers-reduced-motion: no-preference) {

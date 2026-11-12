@@ -716,8 +716,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Fetch GitHub user data
   async function fetchGitHubData() {
-    // The contribution graph comes from its own API, so let it load independently
+    // The contribution graph and streaks come from their own API, so let them load independently
     loadContributionGraph();
+    loadStreaks();
     try {
       const [userResponse, reposResponse] = await Promise.all([
         fetch(endpoints.user),
@@ -730,11 +731,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update stats
         document.getElementById('githubRepos').textContent = userData.public_repos;
-        document.getElementById('githubFollowers').textContent = userData.followers;
-
-        // Calculate total stars
-        const totalStars = reposData.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-        document.getElementById('githubStars').textContent = totalStars;
 
         // Load activity feed (also derives the 30-day commit count)
         loadGitHubActivity();
@@ -749,10 +745,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
       console.error('Error fetching GitHub data:', error);
       // Show fallback data
-      document.getElementById('githubRepos').textContent = '15+';
-      document.getElementById('githubStars').textContent = '25+';
-      document.getElementById('githubFollowers').textContent = '10+';
-      // (the 30-day contributions stat is owned by loadContributionGraph)
+      document.getElementById('githubRepos').textContent = '65+';
+      // (streaks and the 30-day contributions stat load separately)
       // Stop the activity feed from spinning forever
       renderActivityFallback();
     }
@@ -985,6 +979,68 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
+  // Current and longest run of consecutive days with at least one contribution,
+  // over the whole account history. A day with no contributions yet today does
+  // not break the current streak (it counts up to yesterday).
+  // Returns day counts plus the first and last date (YYYY-MM-DD) of each run.
+  function computeStreaks(days, today) {
+    const past = days.filter(d => d.date <= today).sort((a, b) => (a.date < b.date ? -1 : 1));
+    let longest = 0, run = 0, runStart = null, longestStart = null, longestEnd = null;
+    past.forEach(d => {
+      if (d.count > 0) {
+        if (run === 0) runStart = d.date;
+        run++;
+        if (run > longest) { longest = run; longestStart = runStart; longestEnd = d.date; }
+      } else {
+        run = 0;
+      }
+    });
+    let i = past.length - 1;
+    if (i >= 0 && past[i].date === today && past[i].count === 0) i--;
+    const currentEnd = i >= 0 && past[i].count > 0 ? past[i].date : null;
+    let current = 0;
+    while (i >= 0 && past[i].count > 0) { current++; i--; }
+    const currentStart = current ? past[i + 1].date : null;
+    return { current, currentStart, currentEnd, longest, longestStart, longestEnd };
+  }
+
+  // "Sep 15 – Nov 12"; years are added when the range crosses a year or isn't this year.
+  function formatStreakRange(start, end) {
+    if (!start || !end) return '';
+    const s = new Date(start + 'T00:00:00'), e = new Date(end + 'T00:00:00');
+    const withYear = s.getFullYear() !== e.getFullYear() || e.getFullYear() !== new Date().getFullYear();
+    const fmt = d => d.toLocaleDateString('en-US', withYear
+      ? { month: 'short', day: 'numeric', year: 'numeric' }
+      : { month: 'short', day: 'numeric' });
+    return start === end ? fmt(s) : `${fmt(s)} – ${fmt(e)}`;
+  }
+
+  async function loadStreaks() {
+    const currentEl = document.getElementById('githubCurrentStreak');
+    const longestEl = document.getElementById('githubLongestStreak');
+    if (!currentEl || !longestEl) return;
+    const label = n => `${n} ${n === 1 ? 'day' : 'days'}`;
+    try {
+      const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
+      if (!response.ok) throw new Error('Contributions request failed: ' + response.status);
+      const data = await response.json();
+      if (!Array.isArray(data.contributions) || data.contributions.length === 0) throw new Error('No contribution data');
+      const now = new Date();
+      const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const s = computeStreaks(data.contributions, today);
+      currentEl.textContent = label(s.current);
+      longestEl.textContent = label(s.longest);
+      const currentRange = document.getElementById('githubCurrentStreakRange');
+      const longestRange = document.getElementById('githubLongestStreakRange');
+      if (currentRange) currentRange.textContent = formatStreakRange(s.currentStart, s.currentEnd);
+      if (longestRange) longestRange.textContent = formatStreakRange(s.longestStart, s.longestEnd);
+    } catch (error) {
+      console.error('Error loading streaks:', error);
+      currentEl.textContent = '—';
+      longestEl.textContent = '—';
+    }
+  }
+
   // Render the last year of contributions as a GitHub-style heatmap
   async function loadContributionGraph() {
     const card = document.getElementById('githubHeatmapCard');
@@ -1138,3 +1194,33 @@ document.querySelectorAll('.xp-duration[data-since]').forEach(function (el) {
   const tenure = formatTenure(el.dataset.since, new Date());
   if (tenure) el.textContent = ` · ${tenure}`;
 });
+
+/* Projects: the first four cards show by default; "See more" reveals the rest.
+   Without this script nothing is collapsed, so every card stays visible. */
+(function () {
+  const grid = document.getElementById('projectsGrid');
+  const toggle = document.getElementById('projectsToggle');
+  if (!grid || !toggle) return;
+  const label = toggle.querySelector('.projects-toggle__label');
+
+  grid.classList.add('is-collapsible');
+  toggle.parentElement.hidden = false;
+
+  toggle.addEventListener('click', function () {
+    const expanded = grid.classList.toggle('is-expanded');
+    toggle.setAttribute('aria-expanded', String(expanded));
+    label.textContent = expanded ? 'Show fewer projects' : 'See more projects';
+
+    // The section just changed height: re-measure the scroll animations and
+    // let the particle background resize to fit.
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    window.dispatchEvent(new Event('resize'));
+
+    // After collapsing, bring the button back into view so the page doesn't
+    // leave the reader in the middle of the next section.
+    if (!expanded) {
+      if (window.lenis) window.lenis.scrollTo(toggle, { offset: -window.innerHeight / 2 });
+      else toggle.scrollIntoView({ block: 'center' });
+    }
+  });
+})();
