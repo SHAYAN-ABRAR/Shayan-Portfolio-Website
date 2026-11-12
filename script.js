@@ -655,7 +655,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Preload critical images
   const criticalImages = [
-    './assets/AbhijeetBhalePortfolio.jpg',
     './assets/cursor.png'
   ];
 
@@ -1119,3 +1118,23 @@ document.addEventListener('DOMContentLoaded', function() {
   }, { passive: true });
 })();
 
+
+/* Time in the current role, shown after "Present" (e.g. "· 10 months",
+   "· 1 year 2 months"). Counted in whole months from the start month in
+   data-since="YYYY-MM", using the visitor's date, so it stays up to date. */
+function formatTenure(since, now) {
+  const [startYear, startMonth] = since.split('-').map(Number);
+  const months = (now.getFullYear() - startYear) * 12 + (now.getMonth() + 1 - startMonth);
+  if (!(months >= 1)) return '';
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const parts = [];
+  if (years) parts.push(`${years} ${years === 1 ? 'year' : 'years'}`);
+  if (rest) parts.push(`${rest} ${rest === 1 ? 'month' : 'months'}`);
+  return parts.join(' ');
+}
+
+document.querySelectorAll('.xp-duration[data-since]').forEach(function (el) {
+  const tenure = formatTenure(el.dataset.since, new Date());
+  if (tenure) el.textContent = ` · ${tenure}`;
+});

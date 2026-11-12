@@ -181,15 +181,26 @@
       <div class="about-content" id="about-text">
         <p class="research-eyebrow">About Me</p>
         <h2 class="about-headline">
-          I'm <span>Shayan Abrar</span> — an AI Engineer who turns Python &amp; Machine Learning into intelligent, production-ready applications.
+          I'm <span>Shayan Abrar</span> — an AI engineer and published researcher. I study how to make deep learning explain its decisions, and I build AI systems that run in production.
         </h2>
 
+        <ul class="about-stats" aria-label="Research highlights">
+          <li><span class="about-stat__num">7</span><span class="about-stat__label">research papers</span></li>
+          <li><span class="about-stat__num">3</span><span class="about-stat__label">as first author</span></li>
+          <li><span class="about-stat__num">20+</span><span class="about-stat__label">citations</span></li>
+          <li><span class="about-stat__num">A+</span><span class="about-stat__label">undergraduate thesis</span></li>
+        </ul>
+
         <p class="about-para">
-          I hold a Bachelor's degree in Computer Science and Engineering from American International University-Bangladesh (AIUB), and I currently work as a Junior AI Engineer at Tiger Park Ltd., where I build production-grade AI agents, custom MCP servers, and the Django backends that power them. Alongside industry work, I have a strong research background — seven published papers in deep learning and explainable AI.
+          My research applies <span class="about-hl">explainable deep learning</span> to problems where a wrong answer has a real cost: grading knee osteoarthritis, screening for PCOS, classifying retinal disease, and diagnosing crop leaf disease. That work has produced <span class="about-hl">seven papers, three as first author</span>, five of them in IEEE conference proceedings. I graduated in Computer Science and Engineering (Data Science major) from American International University-Bangladesh with an A+ thesis on predicting personality traits from behavioural biometrics.
         </p>
 
         <p class="about-para">
-          I'm passionate about <span class="about-hl">Python</span>, <span class="about-hl">Machine Learning</span>, <span class="about-hl">LLMs &amp; AI Agents</span>, and <span class="about-hl">Computer Vision</span> — and my projects show it: an AI debugger that fixes code from a single screenshot, offline study and nutrition apps that work in both Bengali and English, a real-time monitor for the entire Dhaka Stock Exchange, and an AI-driven 3D interior design studio. Outside the digital realm, I enjoy playing football, exploring new technologies, gaming, and brainstorming innovative ideas.
+          Today I'm a <span class="about-hl">Junior AI Engineer at Tiger Park Ltd.</span>, where I build AI agents deployed across multiple live sites, a custom MCP server, and the Django backends that support them. In my own time I run research-grade experiments in the open: <span class="about-hl">LunarLab</span> trains 38 reinforcement-learning policies and tests them on 3,800 held-out episodes to measure reward hacking, and a 110-run study examines how a retinal foundation model transfers to diabetic-retinopathy datasets it has never seen.
+        </p>
+
+        <p class="about-para">
+          Away from the keyboard I'm a full-marathon finisher, a former scout, and a football and gaming enthusiast.
         </p>
 
         <div class="about-actions">
@@ -258,17 +269,17 @@
           </div>
           <div class="xp-meta">
             <span class="xp-badge">Current</span>
-            <span class="xp-dates">Jan 2026 – Present</span>
+            <span class="xp-dates">Jan 2026 – Present<span class="xp-duration" data-since="2026-01"></span></span>
             <span class="xp-loc"><i class="fas fa-location-dot"></i> On-site · Dhaka, Bangladesh</span>
           </div>
         </header>
         <ul class="xp-points">
-          <li>Engineering production-grade AI agents with Ollama — fine-tuned for precise responses and <span class="xp-num">deployed across multiple live sites</span></li>
+          <li>Engineering production-grade AI agents on multiple LLM platforms — fine-tuned for precise responses and <span class="xp-num">deployed across multiple live sites</span></li>
           <li>Architected a <span class="xp-num">custom MCP server</span> and a centralized AI system that orchestrates multiple programs under one intelligent core</li>
           <li>Django backend development supporting the AI stack</li>
         </ul>
         <div class="xp-tags">
-          <span>Python</span><span>Ollama</span><span>MCP</span><span>Django</span><span>AI Agents</span>
+          <span>Python</span><span>Ollama</span><span>OpenRouter</span><span>MCP</span><span>Django</span><span>AI Agents</span>
         </div>
       </article>
 
@@ -279,7 +290,7 @@
             <p class="xp-company">Maestro Solutions Ltd.</p>
           </div>
           <div class="xp-meta">
-            <span class="xp-dates">Jul 2025 – Sept 2025</span>
+            <span class="xp-dates">Jul 2025 – Sept 2025<span class="xp-duration"> · 3 months</span></span>
             <span class="xp-loc"><i class="fas fa-location-dot"></i> On-site · Dhaka</span>
           </div>
         </header>
@@ -300,7 +311,7 @@
             <p class="xp-company">Outlier AI</p>
           </div>
           <div class="xp-meta">
-            <span class="xp-dates">Oct 2024 – Feb 2025</span>
+            <span class="xp-dates">Oct 2024 – Feb 2025<span class="xp-duration"> · 5 months</span></span>
             <span class="xp-loc"><i class="fas fa-location-dot"></i> Remote · San Francisco, USA</span>
           </div>
         </header>
@@ -363,7 +374,7 @@
       <p class="research-eyebrow">Toolbox</p>
       <h2 class="text-4xl font-bold mb-4">Skills &amp; Technologies</h2>
       <p class="text-gray-400 text-lg research-intro">
-        The stack I use to build, train and ship AI systems.
+        The stack I use to build, train and ship AI systems. Hover or tap a skill to see where I've used it.
       </p>
     </div>
 
@@ -373,24 +384,25 @@
         <div class="skill-cat__head">
           <span class="skill-cat__icon"><i class="fab fa-python"></i></span>
           <h3 class="skill-cat__title">Python &amp; Libraries</h3>
-          <span class="skill-cat__count">15</span>
+          <span class="skill-cat__count">16</span>
         </div>
         <div class="skill-chips">
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy" /> Python</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" loading="lazy" /> NumPy</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" loading="lazy" /> Pandas</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" loading="lazy" /> Matplotlib</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-learn" loading="lazy" /> Scikit-learn</span>
+          <span class="skill-chip" data-used="Tiger Park AI agents, my research code and most of my projects"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy" /> Python</span>
+          <span class="skill-chip" data-used="LunarLab, the retinal foundation-model study, DSE Terminal"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" loading="lazy" /> NumPy</span>
+          <span class="skill-chip" data-used="LunarLab, NutriSnap, DSE Terminal, the retinal study"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" loading="lazy" /> Pandas</span>
+          <span class="skill-chip" data-used="Traffic visualiser at Maestro; figures for LunarLab and the retinal study"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" loading="lazy" /> Matplotlib</span>
+          <span class="skill-chip" data-used="Metrics in the retinal study; DSE Terminal"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="Scikit-learn" loading="lazy" /> Scikit-learn</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" loading="lazy" /> TensorFlow</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg" alt="Keras" loading="lazy" /> Keras</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" loading="lazy" /> PyTorch</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV" loading="lazy" /> OpenCV</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/streamlit/streamlit-original.svg" alt="Streamlit" loading="lazy" /> Streamlit</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/plotly/plotly-original.svg" alt="Plotly" loading="lazy" /> Plotly</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" alt="Selenium" loading="lazy" /> Selenium</span>
-          <span class="skill-chip"><i class="fas fa-code"></i> BeautifulSoup</span>
+          <span class="skill-chip" data-used="LunarLab RL agents, the retinal foundation-model study, Whisper and CLIP agents"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" loading="lazy" /> PyTorch</span>
+          <span class="skill-chip" data-used="Image preprocessing in the retinal foundation-model study"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV" loading="lazy" /> OpenCV</span>
+          <span class="skill-chip" data-used="DebugGenius, NoteAI, NutriSnap, DSE Terminal"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/streamlit/streamlit-original.svg" alt="Streamlit" loading="lazy" /> Streamlit</span>
+          <span class="skill-chip" data-used="DSE Terminal charts, NutriSnap, network-traffic dashboard"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/plotly/plotly-original.svg" alt="Plotly" loading="lazy" /> Plotly</span>
+          <span class="skill-chip" data-used="TP-Link router scraper at Maestro Solutions"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg" alt="Selenium" loading="lazy" /> Selenium</span>
+          <span class="skill-chip" data-used="Router scraper at Maestro, DSE Terminal, DayMate news scraping"><i class="fas fa-code"></i> BeautifulSoup</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/qt/qt-original.svg" alt="PyQt" loading="lazy" /> PyQt</span>
-          <span class="skill-chip"><img src="https://img.icons8.com/?size=100&amp;id=IuuVVwsdTi2v&amp;format=png&amp;color=000000" alt="Django" loading="lazy" /> Django</span>
+          <span class="skill-chip" data-used="Tiger Park backends, EmployeeMS, ZenLeaf Tea Lounge"><img src="https://img.icons8.com/?size=100&amp;id=IuuVVwsdTi2v&amp;format=png&amp;color=000000" alt="Django" loading="lazy" /> Django</span>
+          <span class="skill-chip" data-used="REST API for EmployeeMS"><img src="https://cdn.simpleicons.org/django/ffffff" alt="" loading="lazy" /> Django REST Framework</span>
         </div>
       </div>
 
@@ -398,14 +410,19 @@
         <div class="skill-cat__head">
           <span class="skill-cat__icon"><i class="fas fa-robot"></i></span>
           <h3 class="skill-cat__title">AI Engineering</h3>
-          <span class="skill-cat__count">6</span>
+          <span class="skill-cat__count">11</span>
         </div>
         <div class="skill-chips">
-          <span class="skill-chip"><img src="https://cdn.simpleicons.org/ollama/ffffff" alt="Ollama" loading="lazy" /> Ollama</span>
-          <span class="skill-chip"><img src="https://cdn.simpleicons.org/langchain/ffffff" alt="LangGraph" loading="lazy" /> LangGraph</span>
-          <span class="skill-chip"><i class="fas fa-plug"></i> MCP</span>
-          <span class="skill-chip"><i class="fas fa-eye"></i> Vision LLMs</span>
-          <span class="skill-chip"><img src="https://cdn.simpleicons.org/huggingface" alt="Hugging Face" loading="lazy" /> Hugging Face</span>
+          <span class="skill-chip" data-used="Tiger Park AI agents, DebugGenius, NoteAI, RoomCraft"><img src="https://cdn.simpleicons.org/ollama/ffffff" alt="Ollama" loading="lazy" /> Ollama</span>
+          <span class="skill-chip" data-used="Tiger Park AI agents"><img src="https://cdn.simpleicons.org/openrouter/ffffff" alt="" loading="lazy" /> OpenRouter</span>
+          <span class="skill-chip" data-used="DayMate planner, Research Assistant and Long-Term Memory agents"><img src="https://cdn.simpleicons.org/langgraph/ffffff" alt="LangGraph" loading="lazy" /> LangGraph</span>
+          <span class="skill-chip" data-used="Research Assistant agent, CLIP image agent, FAQ bots"><img src="https://cdn.simpleicons.org/langchain/ffffff" alt="" loading="lazy" /> LangChain</span>
+          <span class="skill-chip" data-used="Custom MCP server at Tiger Park"><i class="fas fa-plug"></i> MCP</span>
+          <span class="skill-chip" data-used="Research Assistant agent: question answering over PDFs"><i class="fas fa-book-open"></i> RAG</span>
+          <span class="skill-chip" data-used="Long-term memory in my Research Assistant and memory agents"><i class="fas fa-database"></i> ChromaDB</span>
+          <span class="skill-chip" data-used="LLM backend for my Multi-API, Research Assistant and memory agents"><i class="fas fa-bolt"></i> Groq</span>
+          <span class="skill-chip" data-used="DebugGenius (error screenshots), NoteAI (handwritten notes), NutriSnap (food photos)"><i class="fas fa-eye"></i> Vision LLMs</span>
+          <span class="skill-chip" data-used="Whisper speech-to-text, CLIP image analysis, diffusion image synthesis"><img src="https://cdn.simpleicons.org/huggingface" alt="Hugging Face" loading="lazy" /> Hugging Face</span>
           <span class="skill-chip"><img src="https://cdn.simpleicons.org/spacy" alt="spaCy" loading="lazy" /> spaCy</span>
         </div>
       </div>
@@ -414,14 +431,18 @@
         <div class="skill-cat__head">
           <span class="skill-cat__icon"><i class="fas fa-brain"></i></span>
           <h3 class="skill-cat__title">Research &amp; ML</h3>
-          <span class="skill-cat__count">5</span>
+          <span class="skill-cat__count">9</span>
         </div>
         <div class="skill-chips">
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" alt="Jupyter Notebook" loading="lazy" /> Jupyter Notebook</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google Colab" loading="lazy" /> Google Colab</span>
-          <span class="skill-chip"><img src="https://img.icons8.com/?size=100&amp;id=Omk4fWoSmCHm&amp;format=png&amp;color=000000" alt="Kaggle" loading="lazy" /> Kaggle</span>
-          <span class="skill-chip"><img src="https://cdn.brandfetch.io/idS8GMP5c8/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&amp;t=1742926327412" alt="MLflow" loading="lazy" /> MLflow</span>
-          <span class="skill-chip"><i class="fas fa-magnifying-glass-chart"></i> Explainable AI</span>
+          <span class="skill-chip" data-used="My LangGraph, speech, CLIP and image-synthesis agent notebooks"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" alt="Jupyter Notebook" loading="lazy" /> Jupyter Notebook</span>
+          <span class="skill-chip" data-used="DayMate, Research Assistant and FAQ agents"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google Colab" loading="lazy" /> Google Colab</span>
+          <span class="skill-chip" data-used="Source of public datasets for my retinal study"><img src="https://img.icons8.com/?size=100&amp;id=Omk4fWoSmCHm&amp;format=png&amp;color=000000" alt="Kaggle" loading="lazy" /> Kaggle</span>
+          <span class="skill-chip"><img src="https://cdn.simpleicons.org/mlflow" alt="MLflow" loading="lazy" /> MLflow</span>
+          <span class="skill-chip" data-used="My papers on knee, retinal, PCOS and crop-leaf diagnosis"><i class="fas fa-magnifying-glass-chart"></i> Explainable AI</span>
+          <span class="skill-chip" data-used="PPO and DQN agents in LunarLab"><i class="fas fa-robot"></i> Stable-Baselines3</span>
+          <span class="skill-chip" data-used="LunarLander environment in LunarLab"><i class="fas fa-dumbbell"></i> Gymnasium</span>
+          <span class="skill-chip" data-used="Hyperparameter tuning in LunarLab"><img src="https://cdn.simpleicons.org/optuna/ffffff" alt="" loading="lazy" /> Optuna</span>
+          <span class="skill-chip" data-used="438 tests in the retinal study; LunarLab and DebugGenius test suites"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" alt="" loading="lazy" /> pytest</span>
         </div>
       </div>
 
@@ -429,13 +450,14 @@
         <div class="skill-cat__head">
           <span class="skill-cat__icon"><i class="fas fa-database"></i></span>
           <h3 class="skill-cat__title">Databases</h3>
-          <span class="skill-cat__count">4</span>
+          <span class="skill-cat__count">5</span>
         </div>
         <div class="skill-chips">
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy" /> PostgreSQL</span>
+          <span class="skill-chip" data-used="Database behind two private projects"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" loading="lazy" /> PostgreSQL</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" loading="lazy" /> MongoDB</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" loading="lazy" /> Oracle</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" loading="lazy" /> MySQL</span>
+          <span class="skill-chip" data-used="Server-log analytics at Maestro; PHP seller dashboard"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" loading="lazy" /> MySQL</span>
+          <span class="skill-chip" data-used="DebugGenius chat history, ZenLeaf Tea Lounge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="" loading="lazy" /> SQLite</span>
         </div>
       </div>
 
@@ -443,14 +465,18 @@
         <div class="skill-cat__head">
           <span class="skill-cat__icon"><i class="fas fa-cube"></i></span>
           <h3 class="skill-cat__title">Web &amp; 3D</h3>
-          <span class="skill-cat__count">5</span>
+          <span class="skill-cat__count">9</span>
         </div>
         <div class="skill-chips">
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" loading="lazy" /> React</span>
-          <span class="skill-chip"><img src="https://cdn.simpleicons.org/threedotjs/ffffff" alt="Three.js" loading="lazy" /> Three.js</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy" /> TypeScript</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" /> HTML5</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" loading="lazy" /> CSS3</span>
+          <span class="skill-chip" data-used="RoomCraft, Atlas 3D, Movie Booking Concierge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" loading="lazy" /> React</span>
+          <span class="skill-chip" data-used="Atlas 3D"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="" loading="lazy" /> Next.js</span>
+          <span class="skill-chip" data-used="RoomCraft, Atlas 3D"><img src="https://cdn.simpleicons.org/threedotjs/ffffff" alt="Three.js" loading="lazy" /> Three.js</span>
+          <span class="skill-chip" data-used="3D scenes in RoomCraft and Atlas 3D"><i class="fas fa-cubes"></i> React Three Fiber</span>
+          <span class="skill-chip" data-used="RoomCraft, Atlas 3D, Movie Booking Concierge"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy" /> TypeScript</span>
+          <span class="skill-chip" data-used="This portfolio, Nexus Travels ticketing, Alpha Clash game"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" loading="lazy" /> JavaScript</span>
+          <span class="skill-chip" data-used="This portfolio and my landing-page builds"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" loading="lazy" /> HTML5</span>
+          <span class="skill-chip" data-used="This portfolio; a pure-CSS cricket animation"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" loading="lazy" /> CSS3</span>
+          <span class="skill-chip" data-used="RoomCraft, Atlas 3D, Movie Booking Concierge, Champions Arena"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="" loading="lazy" /> Tailwind CSS</span>
         </div>
       </div>
 
@@ -458,15 +484,16 @@
         <div class="skill-cat__head">
           <span class="skill-cat__icon"><i class="fas fa-screwdriver-wrench"></i></span>
           <h3 class="skill-cat__title">Tools &amp; Cloud</h3>
-          <span class="skill-cat__count">6</span>
+          <span class="skill-cat__count">7</span>
         </div>
         <div class="skill-chips">
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" loading="lazy" /> Git</span>
-          <span class="skill-chip"><img src="./assets/github-logo.png" alt="GitHub" loading="lazy" /> GitHub</span>
+          <span class="skill-chip" data-used="Version control on every project"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" loading="lazy" /> Git</span>
+          <span class="skill-chip" data-used="Hosts all my project and research code"><img src="./assets/github-logo.png" alt="GitHub" loading="lazy" /> GitHub</span>
+          <span class="skill-chip" data-used="CI on Linux and Windows for LunarLab"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="" loading="lazy" /> GitHub Actions</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" loading="lazy" /> Docker</span>
           <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" loading="lazy" /> Google Cloud</span>
-          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" loading="lazy" /> AWS</span>
-          <span class="skill-chip"><i class="fas fa-arrows-turn-to-dots"></i> REST APIs</span>
+          <span class="skill-chip"><img src="https://cdn.jsdelivr.net/npm/devicon@2.16.0/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" loading="lazy" /> AWS</span>
+          <span class="skill-chip" data-used="Tiger Park Django backends, EmployeeMS API, Multi-API agent"><i class="fas fa-arrows-turn-to-dots"></i> REST APIs</span>
         </div>
       </div>
 
@@ -846,12 +873,12 @@
       </div>
       <div class="research-stats__divider"></div>
       <div class="research-stat">
-        <span class="research-stat-num" data-count="13">0</span>
+        <span class="research-stat-num" data-count="21">0</span>
         <span class="research-stat-label">Citations</span>
       </div>
       <div class="research-stats__divider"></div>
       <div class="research-stat">
-        <span class="research-stat-num" data-count="2">0</span>
+        <span class="research-stat-num" data-count="3">0</span>
         <span class="research-stat-label">h-index</span>
       </div>
     </div>
@@ -869,7 +896,7 @@
         <h3 class="pub-title">Explainable Deep Learning for Hog Plum Leaf Disease Diagnosis: Leveraging the Depth of Xception</h3>
         <p class="pub-authors">BMS Alam, MT Noor, <span class="pub-me">S Abrar</span>, G Kibria, MT Samiha, NT Niloy</p>
         <div class="pub-feat__foot">
-          <span class="pub-feat__cites"><span class="pub-feat__cites-num">5</span> citations</span>
+          <span class="pub-feat__cites"><span class="pub-feat__cites-num">7</span> citations</span>
           <span class="pub-read">Read paper <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
@@ -883,7 +910,7 @@
         <h3 class="pub-title">MediVision: An Explainable and Robust Deep Learning Framework for Knee Osteoarthritis Grading</h3>
         <p class="pub-authors">G Kibria, <span class="pub-me">S Abrar</span>, BMS Alam, A Rayhan, MT Noor, R Awal, S Ripon</p>
         <div class="pub-feat__foot">
-          <span class="pub-feat__cites"><span class="pub-feat__cites-num">5</span> citations</span>
+          <span class="pub-feat__cites"><span class="pub-feat__cites-num">8</span> citations</span>
           <span class="pub-read">Read paper <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
@@ -898,7 +925,7 @@
         <h3 class="pub-title">Smart Diagnosis and Early Intervention in PCOS: A Deep Learning Approach to Women's Reproductive Health</h3>
         <p class="pub-authors"><span class="pub-me">S Abrar</span>, S Rahman, IJ Momo, MT Samiha, BM Alam, MT Noor, NT Niloy</p>
         <div class="pub-feat__foot">
-          <span class="pub-feat__cites"><span class="pub-feat__cites-num">2</span> citations</span>
+          <span class="pub-feat__cites"><span class="pub-feat__cites-num">4</span> citations</span>
           <span class="pub-read">Read paper <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
@@ -912,7 +939,7 @@
         <h3 class="pub-title">RetinaVision: XAI-Driven Augmented Regulation for Precise Retinal Disease Classification</h3>
         <p class="pub-authors">MT Noor, <span class="pub-me">S Abrar</span>, JA Mahi, MP Mia, A Hridoy, S Ghosh</p>
         <div class="pub-feat__foot">
-          <span class="pub-feat__cites"><span class="pub-feat__cites-num">1</span> citation</span>
+          <span class="pub-feat__cites"><span class="pub-feat__cites-num">2</span> citations</span>
           <span class="pub-read">Read paper <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>

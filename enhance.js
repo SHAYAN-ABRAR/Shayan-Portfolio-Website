@@ -296,4 +296,67 @@
     }
   })();
 
+  /* ---------------------------------------------------------------
+     9. Skill chips: "where I've used it" tooltip
+     One shared tooltip shows a chip's data-used text on hover,
+     keyboard focus or tap. Chips without data-used are left alone.
+     --------------------------------------------------------------- */
+  (function initSkillTips() {
+    var chips = document.querySelectorAll(".skill-chip[data-used]");
+    if (!chips.length) return;
+
+    var tip = document.createElement("div");
+    tip.className = "skill-tip";
+    tip.id = "skillTip";
+    tip.setAttribute("role", "tooltip");
+    var label = document.createElement("span");
+    label.className = "skill-tip__label";
+    label.textContent = "Where I've used it";
+    var text = document.createElement("span");
+    tip.appendChild(label);
+    tip.appendChild(text);
+    document.body.appendChild(tip);
+
+    var current = null;
+    var GAP = 10;  // space between chip and tooltip
+    var EDGE = 8;  // minimum distance from the viewport edge
+
+    function show(chip) {
+      current = chip;
+      text.textContent = chip.getAttribute("data-used");
+      chip.setAttribute("aria-describedby", tip.id);
+
+      // Measure at the left edge so the width is not squeezed by the old position.
+      tip.style.left = "0px";
+      var rect = chip.getBoundingClientRect();
+      var left = rect.left + rect.width / 2 - tip.offsetWidth / 2;
+      left = Math.max(EDGE, Math.min(left, window.innerWidth - tip.offsetWidth - EDGE));
+      var top = rect.top - tip.offsetHeight - GAP;
+      if (top < EDGE) top = rect.bottom + GAP;  // no room above: show below
+
+      tip.style.left = Math.round(left) + "px";
+      tip.style.top = Math.round(top) + "px";
+      tip.classList.add("is-visible");
+    }
+
+    function hide() {
+      if (!current) return;
+      current.removeAttribute("aria-describedby");
+      current = null;
+      tip.classList.remove("is-visible");
+    }
+
+    Array.prototype.forEach.call(chips, function (chip) {
+      chip.setAttribute("tabindex", "0");
+      chip.addEventListener("mouseenter", function () { show(chip); });
+      chip.addEventListener("mouseleave", hide);
+      chip.addEventListener("focus", function () { show(chip); });
+      chip.addEventListener("blur", hide);
+    });
+    window.addEventListener("scroll", hide, { passive: true });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") hide();
+    });
+  })();
+
 })();
